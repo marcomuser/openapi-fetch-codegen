@@ -9,8 +9,12 @@
   "engines": {
     "node": ">=18"
   },
+  "bin": {
+    "openapi-fetch": "bin/cli.js"
+  },
   "scripts": {
     "build": "tsc",
+    "generate": "npm run build && node ./bin/cli.js",
     "lint": "eslint --max-warnings 0",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
