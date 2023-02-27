@@ -18,6 +18,8 @@ const cli = () => {
   const pathToOutput = flags.output;
 
   main({ pathToSpec, pathToTypes, pathToOutput });
+
+  // then use writeToDisk, pass the string returned by main and create the output file
 };
 
 cli();
