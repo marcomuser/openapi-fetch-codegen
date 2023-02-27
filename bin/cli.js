@@ -6,16 +6,18 @@ const cli = () => {
   const [, , ...args] = process.argv;
 
   const flags = parser(args, {
-    string: ["types"],
+    string: ["types", "output"],
     alias: {
       types: ["t"],
+      output: ["o"],
     },
   });
 
   const pathToSpec = flags._[0];
   const pathToTypes = flags.types;
+  const pathToOutput = flags.output;
 
-  main(pathToSpec, pathToTypes);
+  main({ pathToSpec, pathToTypes, pathToOutput });
 };
 
 cli();
