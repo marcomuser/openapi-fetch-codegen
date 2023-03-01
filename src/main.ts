@@ -13,5 +13,6 @@ export default async function main({
   pathToOutput,
 }: TInput) {
   const spec = await fetchSpec(pathToSpec);
-  const dereferencedSpec = await parseSpec(spec);
+  const operations = await parseSpec(spec);
+  return operations;
 }

@@ -18,9 +18,13 @@ const cli = async () => {
   const pathToTypes = flags.types;
   const pathToOutput = flags.output;
 
-  const document = await main({ pathToSpec, pathToTypes, pathToOutput });
+  const outputString = await main({
+    pathToSpec,
+    pathToTypes,
+    pathToOutput,
+  });
 
-  writeToDisk(document);
+  writeToDisk(outputString);
 };
 
 cli();
