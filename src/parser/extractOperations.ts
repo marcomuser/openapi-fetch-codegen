@@ -15,8 +15,8 @@ export const extractOperations = (spec: Document) => {
         path,
         method: method.toUpperCase(),
         operationId: methodSchema.operationId,
-        parameters: methodSchema.parameters?.length ? true : false,
-        requestBody: extractSortedContentTypes(
+        hasParameters: methodSchema.parameters?.length ? true : false,
+        requestBodyContentTypes: extractSortedContentTypes(
           methodSchema.requestBody as RequestBody | undefined
         ),
 

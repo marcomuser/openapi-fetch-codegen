@@ -2,15 +2,15 @@ import type { ExtractedOperations } from "../../../parser/extractOperations.js";
 
 export const printFnHeader = ({
   operationId,
-  parameters,
-  requestBody,
+  hasParameters,
+  requestBodyContentTypes,
 }: ExtractedOperations[number]) => {
-  const parametersTypeRef = parameters
+  const parametersTypeRef = hasParameters
     ? `operations["${operationId}"]["parameters"]`
     : "";
 
-  const requestBodyTypeRef = requestBody.length
-    ? `operations[${operationId}]["requestBody"]["content"]["${requestBody[0]}"]`
+  const requestBodyTypeRef = requestBodyContentTypes.length
+    ? `operations[${operationId}]["requestBody"]["content"]["${requestBodyContentTypes[0]}"]`
     : "";
 
   const params = getParams(parametersTypeRef, requestBodyTypeRef);
