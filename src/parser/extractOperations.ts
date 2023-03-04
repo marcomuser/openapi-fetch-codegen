@@ -1,4 +1,5 @@
-import type { Document, Operation } from "../types.js";
+import type { Document, Operation, RequestBody } from "../types.js";
+import { extractRequestBody } from "./extractRequestBody.js";
 
 export const extractOperations = (spec: Document) => {
   const operations = [];
@@ -15,7 +16,9 @@ export const extractOperations = (spec: Document) => {
         method: method.toUpperCase(),
         operationId: methodSchema.operationId,
         parameters: methodSchema.parameters?.length ? true : false,
-        requestBody: methodSchema.requestBody,
+        requestBody: methodSchema.requestBody
+          ? extractRequestBody(methodSchema.requestBody as RequestBody)
+          : null,
         responses: methodSchema.responses,
       };
 

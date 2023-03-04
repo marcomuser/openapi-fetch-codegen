@@ -8,6 +8,6 @@ type TInput = {
 
 export default async function main({ pathToSpec, pathToTypes }: TInput) {
   const operations = await parseSpec(pathToSpec);
-  const document = await printDocument(operations, pathToTypes);
+  const document = printDocument(operations, pathToTypes);
   return document;
 }
