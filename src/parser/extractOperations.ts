@@ -14,7 +14,7 @@ export const extractOperations = (spec: Document) => {
         path,
         method: method.toUpperCase(),
         operationId: methodSchema.operationId,
-        parameters: methodSchema.parameters,
+        parameters: methodSchema.parameters?.length ? true : false,
         requestBody: methodSchema.requestBody,
         responses: methodSchema.responses,
       };
@@ -25,3 +25,5 @@ export const extractOperations = (spec: Document) => {
 
   return operations;
 };
+
+export type ExtractedOperations = ReturnType<typeof extractOperations>;

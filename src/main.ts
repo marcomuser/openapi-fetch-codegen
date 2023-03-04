@@ -1,4 +1,5 @@
 import { parseSpec } from "./parser/parseSpec.js";
+import { printDocument } from "./printer/printDocument.js";
 
 type TInput = {
   pathToSpec: string;
@@ -7,5 +8,6 @@ type TInput = {
 
 export default async function main({ pathToSpec, pathToTypes }: TInput) {
   const operations = await parseSpec(pathToSpec);
-  return operations;
+  const document = await printDocument(operations, pathToTypes);
+  return document;
 }
