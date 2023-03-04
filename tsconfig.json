@@ -5,8 +5,8 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "lib": ["ESNext"],
-    "module": "ESNext",
-    "moduleResolution": "Node",
+    "module": "NodeNext",
+    "moduleResolution": "nodenext",
     "noImplicitReturns": true,
     "outDir": "./dist",
     "removeComments": true,
@@ -14,7 +14,6 @@
     "sourceMap": true,
     "strict": true,
     "target": "ESNext",
-    "useDefineForClassFields": true,
     "isolatedModules": true
   },
   "include": ["src"]

@@ -4,8 +4,18 @@
   "description": "",
   "main": "./dist/main.js",
   "module": "./dist/main.js",
+  "types": "./dist/main.d.ts",
   "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
+  "bin": {
+    "openapi-fetch": "bin/cli.js"
+  },
   "scripts": {
+    "build": "tsc",
+    "generate": "node ./bin/cli.js https://petstore3.swagger.io/api/v3/openapi.json --t=./petTypes.ts --o=./generated/petFetch.ts",
+    "lint": "eslint --max-warnings 0",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -20,13 +30,18 @@
   },
   "homepage": "https://github.com/marcomuser/openapi-fetch#readme",
   "dependencies": {
-    "@apidevtools/swagger-parser": "^10.1.0"
+    "@apidevtools/swagger-parser": "^10.1.0",
+    "openapi-types": "^12.1.0",
+    "yargs-parser": "^21.1.1"
   },
   "devDependencies": {
-    "@types/node": "^18.14.1",
-    "openapi-types": "^12.1.0",
+    "@types/node": "^18.14.5",
+    "@types/yargs-parser": "^21.0.0",
+    "@typescript-eslint/eslint-plugin": "^5.54.0",
+    "@typescript-eslint/parser": "^5.54.0",
+    "eslint": "^8.35.0",
+    "eslint-config-prettier": "^8.6.0",
     "prettier": "^2.8.4",
-    "typescript": "^4.9.5",
-    "vitest": "^0.29.1"
+    "typescript": "^4.9.5"
   }
 }
