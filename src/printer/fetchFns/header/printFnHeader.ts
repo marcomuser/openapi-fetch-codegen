@@ -1,8 +1,10 @@
 import type { ExtractedOperations } from "../../../parser/extractOperations.js";
 
-export const printFnHeader = (operation: ExtractedOperations[number]) => {
-  const { operationId, parameters, requestBody } = operation;
-
+export const printFnHeader = ({
+  operationId,
+  parameters,
+  requestBody,
+}: ExtractedOperations[number]) => {
   const parametersTypeRef = parameters
     ? `operations["${operationId}"]["parameters"]`
     : "";
@@ -16,14 +18,18 @@ export const printFnHeader = (operation: ExtractedOperations[number]) => {
 
   const params = getParams(parametersTypeRef, requestBodyTypeRef);
 
+  const args = params
+    ? `${params}
+    config: ExtendedRequestInit`
+    : `config: ExtendedRequestInit`;
+
   return `export const ${operationId} = async(
-    ${params}
-    config: ExtendedRequestInit
+    ${args}
   ) => {`;
 };
 
 const getContentType = (
-  requestBody: Map<"json" | "multipart" | "urlencoded" | unknown, string>
+  requestBody: Map<"json" | "multipart" | "urlencoded" | "unknown", string>
 ) => {
   if (requestBody.has("json")) {
     return requestBody.get("json");
@@ -40,9 +46,9 @@ const getParams = (parametersTypeRef: string, requestBodyTypeRef: string) => {
   if (parametersTypeRef && !requestBodyTypeRef) {
     return `params: ${parametersTypeRef},`;
   } else if (!parametersTypeRef && requestBodyTypeRef) {
-    return `params: requestBody: ${requestBodyTypeRef},`;
+    return `params: { requestBody: ${requestBodyTypeRef} },`;
   } else if (parametersTypeRef && requestBodyTypeRef) {
-    return `params: ${parametersTypeRef} & requestBody: ${requestBodyTypeRef},`;
+    return `params: ${parametersTypeRef} & { requestBody: ${requestBodyTypeRef} },`;
   } else {
     return "";
   }
