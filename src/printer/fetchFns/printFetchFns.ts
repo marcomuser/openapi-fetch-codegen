@@ -1,4 +1,4 @@
-import type { ExtractedOperations } from "../../parser/extractOperations.js";
+import type { ExtractedOperations } from "../../parser/getOperations.js";
 import { printFnHeader } from "./header/printFnHeader.js";
 
 export const printFetchFns = (operations: ExtractedOperations) => {

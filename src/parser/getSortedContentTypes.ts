@@ -1,6 +1,6 @@
 import type { RequestBody } from "../types.js";
 
-export const extractSortedContentTypes = (requestBody?: RequestBody) => {
+export const getSortedContentTypes = (requestBody?: RequestBody) => {
   if (!requestBody) {
     return [];
   }

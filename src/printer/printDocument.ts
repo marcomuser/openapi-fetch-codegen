@@ -1,4 +1,4 @@
-import { ExtractedOperations } from "../parser/extractOperations.js";
+import { ExtractedOperations } from "../parser/getOperations.js";
 import { printFetchFns } from "./fetchFns/printFetchFns.js";
 import { printComment } from "./header/printComment.js";
 import { printImports } from "./header/printImports.js";

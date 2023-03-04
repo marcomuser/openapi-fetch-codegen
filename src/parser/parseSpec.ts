@@ -1,6 +1,6 @@
 import SwaggerParser from "@apidevtools/swagger-parser";
 import type { Document } from "../types.js";
-import { extractOperations } from "./extractOperations.js";
+import { extractOperations } from "./getOperations.js";
 
 export const parseSpec = async (pathToSpec: string) => {
   const parser = new SwaggerParser();

@@ -1,7 +1,7 @@
 import type { Document, Operation, RequestBody } from "../types.js";
-import { extractSortedContentTypes } from "./extractSortedContentTypes.js";
+import { getSortedContentTypes } from "./getSortedContentTypes.js";
 
-export const extractOperations = (spec: Document) => {
+export const getOperations = (spec: Document) => {
   const operations = [];
   const paths = spec.paths || {};
 
@@ -15,8 +15,8 @@ export const extractOperations = (spec: Document) => {
         path,
         method: method.toUpperCase(),
         operationId: methodSchema.operationId,
-        hasParameters: methodSchema.parameters?.length ? true : false,
-        requestBodyContentTypes: extractSortedContentTypes(
+        hasParameters: Boolean(methodSchema.parameters?.length),
+        requestBodyContentTypes: getSortedContentTypes(
           methodSchema.requestBody as RequestBody | undefined
         ),
 
@@ -30,4 +30,4 @@ export const extractOperations = (spec: Document) => {
   return operations;
 };
 
-export type ExtractedOperations = ReturnType<typeof extractOperations>;
+export type ExtractedOperations = ReturnType<typeof getOperations>;
