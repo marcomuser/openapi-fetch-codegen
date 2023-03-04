@@ -1,11 +1,11 @@
-import type { Document, OperationObject } from "../types.js";
+import type { Document, Operation } from "../types.js";
 
 export const extractOperations = (spec: Document) => {
   const operations = [];
   const paths = spec.paths || {};
 
   for (const path in paths) {
-    const methods = paths[path] as Record<string, OperationObject>;
+    const methods = paths[path] as Record<string, Operation>;
 
     for (const method in methods) {
       const methodSchema = methods[method];
@@ -16,6 +16,7 @@ export const extractOperations = (spec: Document) => {
         operationId: methodSchema.operationId,
         parameters: methodSchema.parameters,
         requestBody: methodSchema.requestBody,
+        responses: methodSchema.responses,
       };
 
       operations.push(operation);
