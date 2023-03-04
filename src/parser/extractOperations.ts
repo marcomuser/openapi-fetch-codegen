@@ -1,8 +1,8 @@
 import type { Document, OperationObject } from "../types.js";
 
-export const extractOperations = (schema: Document) => {
+export const extractOperations = (spec: Document) => {
   const operations = [];
-  const paths = schema.paths || {};
+  const paths = spec.paths || {};
 
   for (const path in paths) {
     const methods = paths[path] as Record<string, OperationObject>;

@@ -21,10 +21,9 @@ const cli = async () => {
   const outputString = await main({
     pathToSpec,
     pathToTypes,
-    pathToOutput,
   });
 
-  writeToDisk(outputString);
+  writeToDisk(pathToOutput, outputString);
 };
 
 cli();
