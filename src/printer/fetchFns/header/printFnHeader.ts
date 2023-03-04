@@ -9,12 +9,9 @@ export const printFnHeader = ({
     ? `operations["${operationId}"]["parameters"]`
     : "";
 
-  const requestBodyTypeRef =
-    requestBody && requestBody.size
-      ? `operations[${operationId}]["requestBody"]["content"]["${getContentType(
-          requestBody
-        )}"]`
-      : "";
+  const requestBodyTypeRef = requestBody.length
+    ? `operations[${operationId}]["requestBody"]["content"]["${requestBody[0]}"]`
+    : "";
 
   const params = getParams(parametersTypeRef, requestBodyTypeRef);
 
@@ -26,20 +23,6 @@ export const printFnHeader = ({
   return `export const ${operationId} = async(
     ${args}
   ) => {`;
-};
-
-const getContentType = (
-  requestBody: Map<"json" | "multipart" | "urlencoded" | "unknown", string>
-) => {
-  if (requestBody.has("json")) {
-    return requestBody.get("json");
-  } else if (requestBody.has("multipart")) {
-    return requestBody.get("multipart");
-  } else if (requestBody.has("urlencoded")) {
-    return requestBody.get("urlencoded");
-  } else {
-    return requestBody.get("unknown");
-  }
 };
 
 const getParams = (parametersTypeRef: string, requestBodyTypeRef: string) => {
