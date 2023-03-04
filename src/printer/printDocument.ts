@@ -7,13 +7,10 @@ import { printSharedTypes } from "./header/printSharedTypes.js";
 export const printDocument = (
   operations: ExtractedOperations,
   pathToTypes: string
-) => {
-  return `${printComment()}
+) => `${printComment()}
   
   ${printImports(pathToTypes)}
 
   ${printSharedTypes()}
 
-  ${printFetchFns(operations)}
-`;
-};
+  ${printFetchFns(operations)}`;

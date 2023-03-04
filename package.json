@@ -14,7 +14,7 @@
   },
   "scripts": {
     "build": "tsc",
-    "generate": "node ./bin/cli.js https://petstore3.swagger.io/api/v3/openapi.json --t=./generated/petTypes.ts --o=./generated/petFetch.ts",
+    "generate": "node ./bin/cli.js https://petstore3.swagger.io/api/v3/openapi.json --t=./petTypes.ts --o=./generated/petFetch.ts",
     "lint": "eslint --max-warnings 0",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
