@@ -18,8 +18,8 @@ export const printFnHeader = ({
 
   const args = params
     ? `${params}
-    config: ExtendedRequestInit`
-    : `config: ExtendedRequestInit`;
+    config: ExtRequestInit`
+    : `config: ExtRequestInit`;
 
   return `export const ${operationId} = async(
     ${args}
