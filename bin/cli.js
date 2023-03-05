@@ -23,7 +23,7 @@ const cli = async () => {
     pathToTypes,
   });
 
-  writeToDisk(pathToOutput, outputString);
+  writeToDisk(outputString, pathToOutput);
 };
 
 cli();
