@@ -23,5 +23,6 @@ export const printFnHeader = ({
 
   return `export const ${operationId} = async(
     ${args}
-  ) => {`;
+  ) => {
+    `;
 };
