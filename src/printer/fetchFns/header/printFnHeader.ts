@@ -1,11 +1,11 @@
-import type { ExtractedOperations } from "../../../parser/getOperations.js";
+import type { ExtractedOperation } from "../../../parser/getOperations.js";
 import { getParams } from "./getParams.js";
 
 export const printFnHeader = ({
   operationId,
   hasParameters,
   requestBodyContentTypes = [],
-}: ExtractedOperations[number]) => {
+}: ExtractedOperation) => {
   const parametersTypeRef = hasParameters
     ? `operations["${operationId}"]["parameters"]`
     : "";
@@ -23,6 +23,5 @@ export const printFnHeader = ({
 
   return `export const ${operationId} = async(
     ${args}
-  ) => {
-    `;
+  ) => {`;
 };

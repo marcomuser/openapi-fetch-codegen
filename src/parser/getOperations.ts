@@ -31,3 +31,4 @@ export const getOperations = (spec: Document) => {
 };
 
 export type ExtractedOperations = ReturnType<typeof getOperations>;
+export type ExtractedOperation = ExtractedOperations[number];
