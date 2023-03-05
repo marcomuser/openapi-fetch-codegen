@@ -4,7 +4,7 @@ export const printUrl = ({ path }: ExtractedOperation) => {
   const pathWithPathParameters = replacePathParams(path);
 
   return `const searchParams = new URLSearchParams(params.query);
-  const url = new URL(${pathWithPathParameters}, baseUrl);
+  const url = new URL(\`${pathWithPathParameters}\`, baseUrl);
   url.search = searchParams.toString();`;
 };
 
