@@ -19,7 +19,6 @@ export const getOperations = (spec: Document) => {
         requestBodyContentTypes: getSortedContentTypes(
           methodSchema.requestBody as RequestBody | undefined
         ),
-
         responses: methodSchema.responses,
       };
 
