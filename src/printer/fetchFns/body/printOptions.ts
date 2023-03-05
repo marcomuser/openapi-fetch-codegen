@@ -4,9 +4,13 @@ export const printOptions = ({
   method,
   requestBodyContentTypes,
 }: ExtractedOperation) => {
+  const optionsProps = !requestBodyContentTypes.length
+    ? `method: "${method}"`
+    : `method: "${method}",
+    ${getBodyProp(requestBodyContentTypes)}`;
+
   return `const options: RequestInit = {
-    method: "${method}",
-    ${getBodyProp(requestBodyContentTypes)}
+    ${optionsProps}
   };
 
   const clonedConfig = structuredClone(config);
@@ -25,11 +29,9 @@ const getBodyProp = (requestBodyContentTypes: string[]) => {
     "multipart/form-data": "new FormData(params.requestBody)",
   };
 
-  if (!requestBodyContentTypes.length) {
-    return "";
-  } else if (Object.hasOwn(contentTypeRequestMap, requestBodyContentTypes[0])) {
+  if (Object.hasOwn(contentTypeRequestMap, requestBodyContentTypes[0])) {
     return `body: ${contentTypeRequestMap[requestBodyContentTypes[0]]},`;
-  } else {
-    return "body: params.requestBody";
   }
+
+  return "body: params.requestBody";
 };
