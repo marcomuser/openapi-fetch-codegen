@@ -15,8 +15,7 @@ export const printOptions = ({
 
   const clonedConfig = structuredClone(config);
   const { baseUrl, ...rest } = clonedConfig;
-  Object.assign(options, rest);
-  `;
+  Object.assign(options, rest);`;
 };
 
 const getBodyProp = (requestBodyContentTypes: string[]) => {
