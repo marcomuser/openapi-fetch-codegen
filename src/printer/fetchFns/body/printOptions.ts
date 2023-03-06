@@ -1,4 +1,5 @@
 import type { ExtractedOperation } from "../../../parser/getOperations.js";
+import { REQUEST_BODY_TYPE } from "../../../utils/consts.js";
 
 export const printOptions = ({
   method,
@@ -19,18 +20,15 @@ export const printOptions = ({
 };
 
 const getBodyProp = (requestBodyContentTypes: string[]) => {
-  const contentTypeRequestMap: Record<string, string> = {
-    "application/*": "JSON.stringify(params.requestBody)",
-    "application/json": "JSON.stringify(params.requestBody)",
-    "application/x-www-form-urlencoded":
-      "new URLSearchParams(params.requestBody)",
-    "*": "JSON.stringify(params.requestBody)",
-    "multipart/form-data": "new FormData(params.requestBody)",
-  };
-
-  if (Object.hasOwn(contentTypeRequestMap, requestBodyContentTypes[0])) {
-    return `body: ${contentTypeRequestMap[requestBodyContentTypes[0]]},`;
+  if (isHandledContentType(requestBodyContentTypes[0])) {
+    return `body: ${REQUEST_BODY_TYPE[requestBodyContentTypes[0]]},`;
   }
 
   return "body: params.requestBody";
+};
+
+const isHandledContentType = (
+  contentType: string
+): contentType is keyof typeof REQUEST_BODY_TYPE => {
+  return Object.hasOwn(REQUEST_BODY_TYPE, contentType);
 };
