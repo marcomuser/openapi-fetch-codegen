@@ -29,6 +29,5 @@ const getBodyProp = (requestBodyContentTypes: string[]) => {
 
 const isHandledContentType = (
   contentType: string
-): contentType is keyof typeof REQUEST_BODY_TYPE => {
-  return Object.hasOwn(REQUEST_BODY_TYPE, contentType);
-};
+): contentType is keyof typeof REQUEST_BODY_TYPE =>
+  Object.hasOwn(REQUEST_BODY_TYPE, contentType);
