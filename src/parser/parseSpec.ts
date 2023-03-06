@@ -1,9 +1,9 @@
-import SwaggerParser from "@apidevtools/swagger-parser";
+import { $RefParser } from "@apidevtools/json-schema-ref-parser";
 import type { Document } from "../types.js";
 import { getOperations } from "./getOperations.js";
 
 export const parseSpec = async (pathToSpec: string) => {
-  const parser = new SwaggerParser();
+  const parser = new $RefParser();
   const dereferencedSpec = (await parser.dereference(pathToSpec)) as Document;
   return getOperations(dereferencedSpec);
 };
