@@ -1,13 +1,20 @@
-import { OpenAPIV3 } from "openapi-types";
+import {
+  OpenAPIObject,
+  OperationObject,
+  ParameterObject,
+  RequestBodyObject,
+  ResponsesObject,
+  ResponseObject,
+} from "openapi3-ts";
 
-export type Document = OpenAPIV3.Document;
+export type Document = OpenAPIObject;
 
-export type Operation = OpenAPIV3.OperationObject;
+export type Operation = OperationObject;
 
-export type Parameter = OpenAPIV3.ParameterObject;
+export type Parameter = ParameterObject;
 
-export type RequestBody = OpenAPIV3.RequestBodyObject;
+export type RequestBody = RequestBodyObject;
 
-export type Responses = OpenAPIV3.ResponsesObject;
+export type Responses = ResponsesObject;
 
-export type Response = OpenAPIV3.ResponseObject;
+export type Response = ResponseObject;
