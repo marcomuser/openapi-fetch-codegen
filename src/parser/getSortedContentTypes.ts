@@ -1,4 +1,4 @@
-import type { RequestBody } from "../types.js";
+import type { RequestBody } from "../utils/types.js";
 
 export const getSortedContentTypes = (requestBody?: RequestBody) => {
   if (!requestBody) {

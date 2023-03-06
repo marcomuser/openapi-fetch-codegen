@@ -1,5 +1,5 @@
 import { $RefParser } from "@apidevtools/json-schema-ref-parser";
-import type { Document } from "../types.js";
+import type { Document } from "../utils/types.js";
 import { getOperations } from "./getOperations.js";
 
 export const parseSpec = async (pathToSpec: string) => {

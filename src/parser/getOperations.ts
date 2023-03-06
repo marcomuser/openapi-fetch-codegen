@@ -1,4 +1,5 @@
-import type { Document, Operation, RequestBody } from "../types.js";
+import { HTTP_VERBS } from "../utils/consts.js";
+import type { Document, Operation, RequestBody } from "../utils/types.js";
 import { getSortedContentTypes } from "./getSortedContentTypes.js";
 
 export const getOperations = (spec: Document) => {
@@ -9,20 +10,22 @@ export const getOperations = (spec: Document) => {
     const methods = paths[path] as Record<string, Operation>;
 
     for (const method in methods) {
-      const methodSchema = methods[method];
+      if (HTTP_VERBS.includes(method)) {
+        const methodSchema = methods[method];
 
-      const operation = {
-        path,
-        method: method.toUpperCase(),
-        operationId: methodSchema.operationId,
-        hasParameters: Boolean(methodSchema.parameters?.length),
-        requestBodyContentTypes: getSortedContentTypes(
-          methodSchema.requestBody as RequestBody | undefined
-        ),
-        responses: methodSchema.responses,
-      };
+        const operation = {
+          path,
+          method: method.toUpperCase(),
+          operationId: methodSchema.operationId,
+          hasParameters: Boolean(methodSchema.parameters?.length),
+          requestBodyContentTypes: getSortedContentTypes(
+            methodSchema.requestBody as RequestBody | undefined
+          ),
+          responses: methodSchema.responses,
+        };
 
-      operations.push(operation);
+        operations.push(operation);
+      }
     }
   }
 
