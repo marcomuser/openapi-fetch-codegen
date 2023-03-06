@@ -1,4 +1,5 @@
-import type { Document, Operation, RequestBody } from "../types.js";
+import { HTTP_VERBS } from "../utils/consts.js";
+import type { Document, Operation, RequestBody } from "../utils/types.js";
 import { getSortedContentTypes } from "./getSortedContentTypes.js";
 
 export const getOperations = (spec: Document) => {
@@ -9,21 +10,22 @@ export const getOperations = (spec: Document) => {
     const methods = paths[path] as Record<string, Operation>;
 
     for (const method in methods) {
-      const methodSchema = methods[method];
+      if (HTTP_VERBS[method.toLowerCase() as keyof typeof HTTP_VERBS]) {
+        const methodSchema = methods[method];
 
-      const operation = {
-        path,
-        method: method.toUpperCase(),
-        operationId: methodSchema.operationId,
-        hasParameters: Boolean(methodSchema.parameters?.length),
-        requestBodyContentTypes: getSortedContentTypes(
-          methodSchema.requestBody as RequestBody | undefined
-        ),
+        const operation = {
+          path,
+          method: method.toUpperCase(),
+          operationId: methodSchema.operationId,
+          hasParameters: Boolean(methodSchema.parameters?.length),
+          requestBodyContentTypes: getSortedContentTypes(
+            methodSchema.requestBody as RequestBody | undefined
+          ),
+          responses: methodSchema.responses,
+        };
 
-        responses: methodSchema.responses,
-      };
-
-      operations.push(operation);
+        operations.push(operation);
+      }
     }
   }
 
@@ -31,3 +33,4 @@ export const getOperations = (spec: Document) => {
 };
 
 export type ExtractedOperations = ReturnType<typeof getOperations>;
+export type ExtractedOperation = ExtractedOperations[number];

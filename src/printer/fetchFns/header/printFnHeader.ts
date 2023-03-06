@@ -1,11 +1,10 @@
-import type { ExtractedOperations } from "../../../parser/getOperations.js";
-import { getParams } from "./getParams.js";
+import type { ExtractedOperation } from "../../../parser/getOperations.js";
 
 export const printFnHeader = ({
   operationId,
   hasParameters,
   requestBodyContentTypes = [],
-}: ExtractedOperations[number]) => {
+}: ExtractedOperation) => {
   const parametersTypeRef = hasParameters
     ? `operations["${operationId}"]["parameters"]`
     : "";
@@ -18,10 +17,22 @@ export const printFnHeader = ({
 
   const args = params
     ? `${params}
-    config: ExtendedRequestInit`
-    : `config: ExtendedRequestInit`;
+    config: ExtRequestInit`
+    : `config: ExtRequestInit`;
 
   return `export const ${operationId} = async(
     ${args}
-  ) => {`;
+  ) =>`;
+};
+
+const getParams = (parametersTypeRef: string, requestBodyTypeRef: string) => {
+  if (parametersTypeRef && !requestBodyTypeRef) {
+    return `params: ${parametersTypeRef},`;
+  } else if (!parametersTypeRef && requestBodyTypeRef) {
+    return `params: { requestBody: ${requestBodyTypeRef} },`;
+  } else if (parametersTypeRef && requestBodyTypeRef) {
+    return `params: ${parametersTypeRef} & { requestBody: ${requestBodyTypeRef} },`;
+  } else {
+    return "";
+  }
 };

@@ -1,3 +1,3 @@
-export const writeToDisk = (pathToOutput: string, document: string) => {
+export const writeToDisk = (document: string, pathToOutput: string) => {
   console.log(document);
 };

@@ -1,4 +1,8 @@
-import type { ExtractedOperations } from "../../parser/getOperations.js";
+import type {
+  ExtractedOperations,
+  ExtractedOperation,
+} from "../../parser/getOperations.js";
+import { printFnBody } from "./body/printFnBody.js";
 import { printFnHeader } from "./header/printFnHeader.js";
 
 export const printFetchFns = (operations: ExtractedOperations) => {
@@ -12,5 +16,7 @@ export const printFetchFns = (operations: ExtractedOperations) => {
   return fetchFns.join("");
 };
 
-const printFetchFn = (operation: ExtractedOperations[number]) =>
-  `${printFnHeader(operation)}`;
+const printFetchFn = (operation: ExtractedOperation) =>
+  `${printFnHeader(operation)}
+  ${printFnBody(operation)}
+  `;
