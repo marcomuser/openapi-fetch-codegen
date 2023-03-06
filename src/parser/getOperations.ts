@@ -1,3 +1,4 @@
+import { PathItemObject } from "openapi3-ts";
 import { HTTP_VERBS } from "../utils/consts.js";
 import type { Document, Operation, RequestBody } from "../utils/types.js";
 import { getSortedContentTypes } from "./getSortedContentTypes.js";
@@ -10,7 +11,7 @@ export const getOperations = (spec: Document) => {
     const methods = paths[path] as Record<string, Operation>;
 
     for (const method in methods) {
-      if (HTTP_VERBS.includes(method)) {
+      if (HTTP_VERBS[method.toLowerCase() as keyof typeof HTTP_VERBS]) {
         const methodSchema = methods[method];
 
         const operation = {

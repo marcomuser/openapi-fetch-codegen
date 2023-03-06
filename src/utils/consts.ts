@@ -1,11 +1,10 @@
-export const HTTP_VERBS = [
-  "GET",
-  "HEAD",
-  "POST",
-  "PUT",
-  "DELETE",
-  "CONNECT",
-  "OPTIONS",
-  "TRACE",
-  "PATCH",
-];
+export const HTTP_VERBS = {
+  get: true,
+  head: true,
+  post: true,
+  put: true,
+  delete: true,
+  options: true,
+  trace: true,
+  patch: true,
+} as const;
