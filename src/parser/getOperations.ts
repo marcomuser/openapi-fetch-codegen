@@ -1,4 +1,3 @@
-import { PathItemObject } from "openapi3-ts";
 import { HTTP_VERBS } from "../utils/consts.js";
 import type { Document, Operation, RequestBody } from "../utils/types.js";
 import { getSortedContentTypes } from "./getSortedContentTypes.js";
