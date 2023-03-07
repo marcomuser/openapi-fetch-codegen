@@ -17,10 +17,9 @@ export const getSortedContentTypes = (requestBody?: RequestBody) => {
   );
 
   return availableTypes
-    .sort((a, b) => {
-      const aIndex = PREFERRED_CONTENT_TYPES.indexOf(a);
-      const bIndex = PREFERRED_CONTENT_TYPES.indexOf(b);
-      return aIndex - bIndex;
-    })
+    .sort(
+      (a, z) =>
+        PREFERRED_CONTENT_TYPES.indexOf(a) - PREFERRED_CONTENT_TYPES.indexOf(z)
+    )
     .concat(remainingTypes);
 };
