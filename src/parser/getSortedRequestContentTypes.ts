@@ -1,4 +1,4 @@
-import { PREFERRED_CONTENT_TYPES } from "../utils/consts.js";
+import { PREFERRED_CONTENT_TYPES } from "../utils/constants.js";
 import type { RequestBody } from "../utils/types.js";
 
 export const getSortedRequestContentTypes = (requestBody?: RequestBody) => {

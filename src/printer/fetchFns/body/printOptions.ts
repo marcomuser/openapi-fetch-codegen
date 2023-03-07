@@ -1,5 +1,5 @@
 import type { ExtractedOperation } from "../../../parser/getOperations.js";
-import { REQUEST_BODY_TYPE } from "../../../utils/consts.js";
+import { REQUEST_BODY_TYPE } from "../../../utils/constants.js";
 
 export const printOptions = ({
   method,

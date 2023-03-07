@@ -1,4 +1,4 @@
-import { HTTP_VERBS } from "../utils/consts.js";
+import { HTTP_VERBS } from "../utils/constants.js";
 import type { Document, Operation, RequestBody } from "../utils/types.js";
 import { getSortedRequestContentTypes } from "./getSortedRequestContentTypes.js";
 
