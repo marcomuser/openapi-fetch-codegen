@@ -3,12 +3,12 @@ import { REQUEST_BODY_TYPE } from "../../../utils/consts.js";
 
 export const printOptions = ({
   method,
-  requestBodyContentTypes,
+  sortedRequestContentTypes,
 }: ExtractedOperation) => {
-  const optionsProps = !requestBodyContentTypes.length
+  const optionsProps = !sortedRequestContentTypes.length
     ? `method: "${method}"`
     : `method: "${method}",
-    ${getBodyProp(requestBodyContentTypes)}`;
+    ${getBodyProp(sortedRequestContentTypes)}`;
 
   return `const options: RequestInit = {
     ${optionsProps}
@@ -19,9 +19,9 @@ export const printOptions = ({
   Object.assign(options, rest);`;
 };
 
-const getBodyProp = (requestBodyContentTypes: string[]) => {
-  if (isHandledContentType(requestBodyContentTypes[0])) {
-    return `body: ${REQUEST_BODY_TYPE[requestBodyContentTypes[0]]},`;
+const getBodyProp = (sortedRequestContentTypes: string[]) => {
+  if (isHandledContentType(sortedRequestContentTypes[0])) {
+    return `body: ${REQUEST_BODY_TYPE[sortedRequestContentTypes[0]]},`;
   }
 
   return "body: params.requestBody";
