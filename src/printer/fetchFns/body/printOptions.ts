@@ -1,5 +1,5 @@
 import type { ExtractedOperation } from "../../../parser/getOperations.js";
-import { REQUEST_BODY_TYPE } from "../../../utils/constants.js";
+import { REQUEST_BODY_TYPE_MAP } from "../../../utils/constants.js";
 
 export const printOptions = ({
   method,
@@ -21,7 +21,7 @@ export const printOptions = ({
 
 const getBodyProp = (sortedRequestContentTypes: string[]) => {
   if (isHandledContentType(sortedRequestContentTypes[0])) {
-    return `body: ${REQUEST_BODY_TYPE[sortedRequestContentTypes[0]]},`;
+    return `body: ${REQUEST_BODY_TYPE_MAP[sortedRequestContentTypes[0]]},`;
   }
 
   return "body: params.requestBody";
@@ -29,5 +29,5 @@ const getBodyProp = (sortedRequestContentTypes: string[]) => {
 
 const isHandledContentType = (
   contentType: string
-): contentType is keyof typeof REQUEST_BODY_TYPE =>
-  Object.hasOwn(REQUEST_BODY_TYPE, contentType);
+): contentType is keyof typeof REQUEST_BODY_TYPE_MAP =>
+  Object.hasOwn(REQUEST_BODY_TYPE_MAP, contentType);

@@ -9,13 +9,13 @@ export const HTTP_VERBS = {
   patch: true,
 } as const;
 
-export const PREFERRED_CONTENT_TYPES = [
+export const PREFERRED_REQUEST_CONTENT_TYPES = [
   "application/json",
   "multipart/form-data",
   "application/x-www-form-urlencoded",
 ];
 
-export const REQUEST_BODY_TYPE = {
+export const REQUEST_BODY_TYPE_MAP = {
   "application/*": "JSON.stringify(params.requestBody)",
   "application/json": "JSON.stringify(params.requestBody)",
   "application/x-www-form-urlencoded":
