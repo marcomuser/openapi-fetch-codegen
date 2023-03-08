@@ -1,9 +1,9 @@
 import { PREFERRED_REQ_CONTENT_TYPES } from "../utils/constants.js";
 import type { RequestBody } from "../utils/types.js";
 
-export const getSortedReqContentTypes = (requestBody?: RequestBody) => {
-  if (!requestBody) {
-    return [];
+export const getReqPreferredContentType = (requestBody?: RequestBody) => {
+  if (!requestBody?.content) {
+    return null;
   }
 
   const contentTypes = Object.keys(requestBody.content);
@@ -22,5 +22,6 @@ export const getSortedReqContentTypes = (requestBody?: RequestBody) => {
         PREFERRED_REQ_CONTENT_TYPES.indexOf(a) -
         PREFERRED_REQ_CONTENT_TYPES.indexOf(z)
     )
-    .concat(remainingTypes);
+    .concat(remainingTypes)
+    .at(0) as string;
 };

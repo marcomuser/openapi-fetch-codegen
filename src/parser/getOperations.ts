@@ -1,6 +1,6 @@
 import { HTTP_VERBS } from "../utils/constants.js";
 import type { Document, Operation, RequestBody } from "../utils/types.js";
-import { getSortedReqContentTypes } from "./getSortedReqContentTypes.js";
+import { getReqPreferredContentType } from "./getReqPreferredContentType.js";
 import { getResWithPreferredContentType } from "./getResWithPreferredContentType.js";
 
 export const getOperations = (spec: Document) => {
@@ -19,7 +19,7 @@ export const getOperations = (spec: Document) => {
           method: method.toUpperCase(),
           operationId: methodSchema.operationId,
           hasParameters: Boolean(methodSchema.parameters?.length),
-          sortedReqContentTypes: getSortedReqContentTypes(
+          reqPreferredContentType: getReqPreferredContentType(
             methodSchema.requestBody as RequestBody | undefined
           ),
           resWithPreferredContentType: getResWithPreferredContentType(
