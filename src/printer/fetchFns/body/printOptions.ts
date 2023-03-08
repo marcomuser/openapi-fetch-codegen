@@ -1,14 +1,14 @@
 import type { ExtractedOperation } from "../../../parser/getOperations.js";
-import { REQUEST_BODY_TYPE_MAP } from "../../../utils/constants.js";
+import { REQ_BODY_CONTENT_TYPE_DICT } from "../../../utils/constants.js";
 
 export const printOptions = ({
   method,
-  sortedRequestContentTypes,
+  sortedReqContentTypes,
 }: ExtractedOperation) => {
-  const optionsProps = !sortedRequestContentTypes.length
+  const optionsProps = !sortedReqContentTypes.length
     ? `method: "${method}"`
     : `method: "${method}",
-    ${getBodyProp(sortedRequestContentTypes)}`;
+    ${getBodyProp(sortedReqContentTypes)}`;
 
   return `const options: RequestInit = {
     ${optionsProps}
@@ -19,9 +19,9 @@ export const printOptions = ({
   Object.assign(options, rest);`;
 };
 
-const getBodyProp = (sortedRequestContentTypes: string[]) => {
-  if (isHandledContentType(sortedRequestContentTypes[0])) {
-    return `body: ${REQUEST_BODY_TYPE_MAP[sortedRequestContentTypes[0]]},`;
+const getBodyProp = (sortedReqContentTypes: string[]) => {
+  if (isHandledContentType(sortedReqContentTypes[0])) {
+    return `body: ${REQ_BODY_CONTENT_TYPE_DICT[sortedReqContentTypes[0]]},`;
   }
 
   return "body: params.requestBody";
@@ -29,5 +29,5 @@ const getBodyProp = (sortedRequestContentTypes: string[]) => {
 
 const isHandledContentType = (
   contentType: string
-): contentType is keyof typeof REQUEST_BODY_TYPE_MAP =>
-  Object.hasOwn(REQUEST_BODY_TYPE_MAP, contentType);
+): contentType is keyof typeof REQ_BODY_CONTENT_TYPE_DICT =>
+  Object.hasOwn(REQ_BODY_CONTENT_TYPE_DICT, contentType);

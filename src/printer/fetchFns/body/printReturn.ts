@@ -1,24 +1,24 @@
 import type { ExtractedOperation } from "../../../parser/getOperations.js";
-import { RESPONSE_TYPE_DICT } from "../../../utils/constants.js";
+import { RES_CONTENT_TYPE_DICT } from "../../../utils/constants.js";
 
 export const printReturn = ({
   operationId,
-  responsesWithSortedContentTypes,
+  resWithSortedContentTypes,
 }: ExtractedOperation) => {
-  const okResponse = responsesWithSortedContentTypes["200"];
+  const okResponse = resWithSortedContentTypes["200"];
   return `const response = await fetch(url, options);
 
   return {
     response,
-    data: (${getResponseType(
+    data: (${getResType(
       okResponse
     )} as operations[${operationId}]["responses"]["200"]["content"]["application/json"],
   };`;
 };
 
-const getResponseType = (sortedResContentTypes: string[]) => {
+const getResType = (sortedResContentTypes: string[]) => {
   if (isHandledContentType(sortedResContentTypes[0])) {
-    return `(await response${RESPONSE_TYPE_DICT[sortedResContentTypes[0]]})`;
+    return `(await response${RES_CONTENT_TYPE_DICT[sortedResContentTypes[0]]})`;
   }
 
   return "response.body";
@@ -26,5 +26,5 @@ const getResponseType = (sortedResContentTypes: string[]) => {
 
 const isHandledContentType = (
   contentType: string
-): contentType is keyof typeof RESPONSE_TYPE_DICT =>
-  Object.hasOwn(RESPONSE_TYPE_DICT, contentType);
+): contentType is keyof typeof RES_CONTENT_TYPE_DICT =>
+  Object.hasOwn(RES_CONTENT_TYPE_DICT, contentType);

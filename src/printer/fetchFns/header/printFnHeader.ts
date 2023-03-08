@@ -3,17 +3,17 @@ import type { ExtractedOperation } from "../../../parser/getOperations.js";
 export const printFnHeader = ({
   operationId,
   hasParameters,
-  sortedRequestContentTypes = [],
+  sortedReqContentTypes = [],
 }: ExtractedOperation) => {
   const parametersTypeRef = hasParameters
     ? `operations["${operationId}"]["parameters"]`
     : "";
 
-  const requestBodyTypeRef = sortedRequestContentTypes.length
-    ? `operations[${operationId}]["requestBody"]["content"]["${sortedRequestContentTypes[0]}"]`
+  const reqBodyTypeRef = sortedReqContentTypes.length
+    ? `operations[${operationId}]["requestBody"]["content"]["${sortedReqContentTypes[0]}"]`
     : "";
 
-  const params = getParams(parametersTypeRef, requestBodyTypeRef);
+  const params = getParams(parametersTypeRef, reqBodyTypeRef);
 
   const args = params
     ? `${params}
@@ -25,13 +25,13 @@ export const printFnHeader = ({
   ) =>`;
 };
 
-const getParams = (parametersTypeRef: string, requestBodyTypeRef: string) => {
-  if (parametersTypeRef && !requestBodyTypeRef) {
+const getParams = (parametersTypeRef: string, reqBodyTypeRef: string) => {
+  if (parametersTypeRef && !reqBodyTypeRef) {
     return `params: ${parametersTypeRef},`;
-  } else if (!parametersTypeRef && requestBodyTypeRef) {
-    return `params: { requestBody: ${requestBodyTypeRef} },`;
-  } else if (parametersTypeRef && requestBodyTypeRef) {
-    return `params: ${parametersTypeRef} & { requestBody: ${requestBodyTypeRef} },`;
+  } else if (!parametersTypeRef && reqBodyTypeRef) {
+    return `params: { requestBody: ${reqBodyTypeRef} },`;
+  } else if (parametersTypeRef && reqBodyTypeRef) {
+    return `params: ${parametersTypeRef} & { requestBody: ${reqBodyTypeRef} },`;
   } else {
     return "";
   }
