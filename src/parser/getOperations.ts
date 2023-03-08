@@ -1,6 +1,7 @@
 import { HTTP_VERBS } from "../utils/constants.js";
 import type { Document, Operation, RequestBody } from "../utils/types.js";
 import { getSortedRequestContentTypes } from "./getSortedRequestContentTypes.js";
+import { getResponsesWithSortedContentTypes } from "./getResponsesWithSortedContentTypes.js";
 
 export const getOperations = (spec: Document) => {
   const operations = [];
@@ -21,7 +22,9 @@ export const getOperations = (spec: Document) => {
           sortedRequestContentTypes: getSortedRequestContentTypes(
             methodSchema.requestBody as RequestBody | undefined
           ),
-          responses: methodSchema.responses,
+          responsesWithSortedContentTypes: getResponsesWithSortedContentTypes(
+            methodSchema.responses
+          ),
         };
 
         operations.push(operation);

@@ -23,3 +23,10 @@ export const REQUEST_BODY_TYPE_MAP = {
   "*": "JSON.stringify(params.requestBody)",
   "multipart/form-data": "new FormData(params.requestBody)",
 } as const;
+
+export const PREFERRED_RESPONSE_CONTENT_TYPES = ["application/json"];
+
+export const RESPONSE_TYPE_DICT = {
+  "application/json": ".json()",
+  "text/html": ".text()",
+} as const;
