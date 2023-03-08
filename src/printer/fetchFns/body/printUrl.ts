@@ -1,9 +1,11 @@
 import type { ExtractedOperation } from "../../../parser/getOperations.js";
 
-export const printUrl = ({ path }: ExtractedOperation) => {
+export const printUrl = ({ path, hasQueryParams }: ExtractedOperation) => {
   const replacedPath = replacePathParams(path);
 
-  return `const searchParams = new URLSearchParams(params.query);
+  return `const searchParams = new URLSearchParams(${
+    hasQueryParams ? "params.query" : "undefined"
+  });
   const url = new URL(\`${replacedPath}\`, baseUrl);
   url.search = searchParams.toString();`;
 };

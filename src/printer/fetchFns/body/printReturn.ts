@@ -15,7 +15,7 @@ const printSwitchStatement = ({
     `;
 
   for (const status in resWithPreferredContentType) {
-    if (resWithPreferredContentType[status]) {
+    if (resWithPreferredContentType[status] && status !== "default") {
       switchStatement += `case ${status}: 
         return {
           response,
@@ -27,7 +27,7 @@ const printSwitchStatement = ({
         };
 
         `;
-    } else {
+    } else if (status !== "default") {
       switchStatement += `case ${status}:
         return {
           response,
@@ -38,13 +38,25 @@ const printSwitchStatement = ({
     }
   }
 
-  switchStatement += `default:
+  if (resWithPreferredContentType["default"]) {
+    switchStatement += `default:
+    return {
+      response,
+      data: ${getDataValue(
+        resWithPreferredContentType["default"] as string
+      )} as operations["${operationId}"]["responses"]["default"]["content"]["${
+      resWithPreferredContentType["default"]
+    }"],
+    };
+  };`;
+  } else {
+    switchStatement += `default:
     return {
       response,
       data: undefined,
     };
   };`;
-
+  }
   return switchStatement;
 };
 
