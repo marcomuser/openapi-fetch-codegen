@@ -1,8 +1,8 @@
 import { PREFERRED_RES_CONTENT_TYPES } from "../utils/constants.js";
 import type { Response, Responses } from "../utils/types.js";
 
-export const getResWithSortedContentTypes = (responses: Responses) => {
-  const resWithSortedContentTypes: Record<string, string[]> = {};
+export const getResWithPreferredContentType = (responses: Responses) => {
+  const resWithSortedContentTypes: Record<string, string | null> = {};
 
   for (const statusCode in responses) {
     const response = responses[statusCode] as Response;
@@ -24,7 +24,10 @@ export const getResWithSortedContentTypes = (responses: Responses) => {
             PREFERRED_RES_CONTENT_TYPES.indexOf(a) -
             PREFERRED_RES_CONTENT_TYPES.indexOf(z)
         )
-        .concat(remainingTypes);
+        .concat(remainingTypes)
+        .at(0) as string;
+    } else {
+      resWithSortedContentTypes[statusCode] = null;
     }
   }
 

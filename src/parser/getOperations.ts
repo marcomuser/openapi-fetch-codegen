@@ -1,7 +1,7 @@
 import { HTTP_VERBS } from "../utils/constants.js";
 import type { Document, Operation, RequestBody } from "../utils/types.js";
 import { getSortedReqContentTypes } from "./getSortedReqContentTypes.js";
-import { getResWithSortedContentTypes } from "./getResWithSortedContentTypes.js";
+import { getResWithPreferredContentType } from "./getResWithPreferredContentType.js";
 
 export const getOperations = (spec: Document) => {
   const operations = [];
@@ -22,7 +22,7 @@ export const getOperations = (spec: Document) => {
           sortedReqContentTypes: getSortedReqContentTypes(
             methodSchema.requestBody as RequestBody | undefined
           ),
-          resWithSortedContentTypes: getResWithSortedContentTypes(
+          resWithPreferredContentType: getResWithPreferredContentType(
             methodSchema.responses
           ),
         };
