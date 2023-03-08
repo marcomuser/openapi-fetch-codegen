@@ -22,7 +22,7 @@ export const printFnHeader = ({
 
   return `export const ${operationId} = async(
     ${args}
-  ) =>`;
+  ) => {`;
 };
 
 const getParams = (parametersTypeRef: string, reqBodyTypeRef: string) => {
