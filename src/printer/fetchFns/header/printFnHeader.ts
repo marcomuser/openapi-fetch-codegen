@@ -3,14 +3,14 @@ import type { ExtractedOperation } from "../../../parser/getOperations.js";
 export const printFnHeader = ({
   operationId,
   hasParameters,
-  reqPreferredContentType,
+  reqSortedContentType,
 }: ExtractedOperation) => {
   const parametersTypeRef = hasParameters
     ? `operations["${operationId}"]["parameters"]`
     : "";
 
-  const reqBodyTypeRef = reqPreferredContentType
-    ? `Exclude<operations["${operationId}"]["requestBody"], undefined>["content"]["${reqPreferredContentType}"]`
+  const reqBodyTypeRef = reqSortedContentType
+    ? `Exclude<operations["${operationId}"]["requestBody"], undefined>["content"]["${reqSortedContentType}"]`
     : "";
 
   const params = getParams(parametersTypeRef, reqBodyTypeRef);

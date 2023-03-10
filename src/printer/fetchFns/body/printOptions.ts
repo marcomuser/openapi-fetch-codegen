@@ -3,12 +3,12 @@ import { REQ_BODY_CONTENT_TYPE_DICT } from "../../../utils/constants.js";
 
 export const printOptions = ({
   method,
-  reqPreferredContentType,
+  reqSortedContentType,
 }: ExtractedOperation) => {
-  const optionsProps = !reqPreferredContentType
+  const optionsProps = !reqSortedContentType
     ? `method: "${method}"`
     : `method: "${method}",
-    ${getBodyProp(reqPreferredContentType)}`;
+    ${getBodyProp(reqSortedContentType)}`;
 
   return `const options: RequestInit = {
     ${optionsProps}
@@ -19,9 +19,9 @@ export const printOptions = ({
   Object.assign(options, rest);`;
 };
 
-const getBodyProp = (reqPreferredContentType: string) => {
-  if (isHandledContentType(reqPreferredContentType)) {
-    return `body: ${REQ_BODY_CONTENT_TYPE_DICT[reqPreferredContentType]},`;
+const getBodyProp = (reqSortedContentType: string) => {
+  if (isHandledContentType(reqSortedContentType)) {
+    return `body: ${REQ_BODY_CONTENT_TYPE_DICT[reqSortedContentType]},`;
   }
 
   return "body: params.requestBody";

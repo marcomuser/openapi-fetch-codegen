@@ -5,8 +5,8 @@ import type {
   Parameter,
   RequestBody,
 } from "../utils/types.js";
-import { getReqPreferredContentType } from "./getReqPreferredContentType.js";
-import { getResWithPreferredContentType } from "./getResWithPreferredContentType.js";
+import { getReqSortedContentType } from "./getReqSortedContentType.js";
+import { getResWithSortedContentType } from "./getResWithSortedContentType.js";
 
 export const getOperations = (spec: Document) => {
   const operations = [];
@@ -27,10 +27,10 @@ export const getOperations = (spec: Document) => {
           hasQueryParams: (methodSchema.parameters as Parameter[])?.some(
             (p) => p.in === "query"
           ),
-          reqPreferredContentType: getReqPreferredContentType(
+          reqSortedContentType: getReqSortedContentType(
             methodSchema.requestBody as RequestBody | undefined
           ),
-          resWithPreferredContentType: getResWithPreferredContentType(
+          resWithSortedContentType: getResWithSortedContentType(
             methodSchema.responses
           ),
         };
