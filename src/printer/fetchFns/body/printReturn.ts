@@ -11,21 +11,27 @@ const printSwitchStatement = ({
   operationId,
   resWithPreferredContentType,
 }: ExtractedOperation) => {
+  if (!resWithPreferredContentType.size) {
+    return `return {
+      response,
+      data: undefined,
+    };`;
+  }
+
   let switchStatement = `switch (response.status) {
     `;
 
-  for (const status in resWithPreferredContentType) {
-    if (resWithPreferredContentType[status] && status !== "default") {
+  for (const status of resWithPreferredContentType.keys()) {
+    if (resWithPreferredContentType.has(status) && status !== "default") {
       switchStatement += `case ${status}: 
         return {
           response,
           data: ${getDataValue(
-            resWithPreferredContentType[status] as string
-          )} as operations["${operationId}"]["responses"]["${status}"]["content"]["${
-        resWithPreferredContentType[status]
-      }"],
+            resWithPreferredContentType.get(status) as string
+          )} as operations["${operationId}"]["responses"]["${status}"]["content"]["${resWithPreferredContentType.get(
+        status
+      )}"],
         };
-
         `;
     } else if (status !== "default") {
       switchStatement += `case ${status}:
@@ -33,22 +39,22 @@ const printSwitchStatement = ({
           response,
           data: undefined,
         };
-
       `;
     }
   }
 
-  if (resWithPreferredContentType["default"]) {
+  if (resWithPreferredContentType.has("default")) {
     switchStatement += `default:
     return {
       response,
       data: ${getDataValue(
-        resWithPreferredContentType["default"] as string
-      )} as operations["${operationId}"]["responses"]["default"]["content"]["${
-      resWithPreferredContentType["default"]
-    }"],
+        resWithPreferredContentType.get("default") as string
+      )} as operations["${operationId}"]["responses"]["default"]["content"]["${resWithPreferredContentType.get(
+      "default"
+    )}"],
     };
-  };`;
+    };
+    `;
   } else {
     switchStatement += `default:
     return {
@@ -57,6 +63,7 @@ const printSwitchStatement = ({
     };
   };`;
   }
+
   return switchStatement;
 };
 

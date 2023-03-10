@@ -2,7 +2,7 @@ import { PREFERRED_RES_CONTENT_TYPES } from "../utils/constants.js";
 import type { Response, Responses } from "../utils/types.js";
 
 export const getResWithPreferredContentType = (responses: Responses) => {
-  const resWithSortedContentTypes: Record<string, string | null> = {};
+  const resWithSortedContentTypes = new Map<string, string>();
 
   for (const statusCode in responses) {
     const response = responses[statusCode] as Response;
@@ -18,7 +18,7 @@ export const getResWithPreferredContentType = (responses: Responses) => {
         (type) => !PREFERRED_RES_CONTENT_TYPES.includes(type)
       );
 
-      resWithSortedContentTypes[statusCode] = availableTypes
+      const preferredType = availableTypes
         .sort(
           (a, z) =>
             PREFERRED_RES_CONTENT_TYPES.indexOf(a) -
@@ -26,8 +26,8 @@ export const getResWithPreferredContentType = (responses: Responses) => {
         )
         .concat(remainingTypes)
         .at(0) as string;
-    } else {
-      resWithSortedContentTypes[statusCode] = null;
+
+      resWithSortedContentTypes.set(statusCode, preferredType);
     }
   }
 
