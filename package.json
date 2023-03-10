@@ -12,6 +12,10 @@
   "bin": {
     "openapi-fetch": "bin/cli.js"
   },
+  "files": [
+    "/bin",
+    "/dist"
+  ],
   "scripts": {
     "build": "tsc",
     "generate": "node ./bin/cli.js https://petstore3.swagger.io/api/v3/openapi.json --t=./petTypes.js --o=./generated/petFetch.ts",
@@ -34,10 +38,10 @@
     "yargs-parser": "^21.1.1"
   },
   "devDependencies": {
-    "@types/node": "^18.14.6",
+    "@types/node": "^18.15.0",
     "@types/yargs-parser": "^21.0.0",
-    "@typescript-eslint/eslint-plugin": "^5.54.0",
-    "@typescript-eslint/parser": "^5.54.0",
+    "@typescript-eslint/eslint-plugin": "^5.54.1",
+    "@typescript-eslint/parser": "^5.54.1",
     "eslint": "^8.35.0",
     "eslint-config-prettier": "^8.7.0",
     "openapi3-ts": "^3.2.0",
