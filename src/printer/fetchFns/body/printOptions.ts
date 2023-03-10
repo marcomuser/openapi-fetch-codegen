@@ -1,14 +1,14 @@
 import type { ExtractedOperation } from "../../../parser/getOperations.js";
-import { REQUEST_BODY_TYPE } from "../../../utils/consts.js";
+import { REQ_BODY_CONTENT_TYPE_DICT } from "../../../utils/constants.js";
 
 export const printOptions = ({
   method,
-  requestBodyContentTypes,
+  reqPreferredContentType,
 }: ExtractedOperation) => {
-  const optionsProps = !requestBodyContentTypes.length
+  const optionsProps = !reqPreferredContentType
     ? `method: "${method}"`
     : `method: "${method}",
-    ${getBodyProp(requestBodyContentTypes)}`;
+    ${getBodyProp(reqPreferredContentType)}`;
 
   return `const options: RequestInit = {
     ${optionsProps}
@@ -19,9 +19,9 @@ export const printOptions = ({
   Object.assign(options, rest);`;
 };
 
-const getBodyProp = (requestBodyContentTypes: string[]) => {
-  if (isHandledContentType(requestBodyContentTypes[0])) {
-    return `body: ${REQUEST_BODY_TYPE[requestBodyContentTypes[0]]},`;
+const getBodyProp = (reqPreferredContentType: string) => {
+  if (isHandledContentType(reqPreferredContentType)) {
+    return `body: ${REQ_BODY_CONTENT_TYPE_DICT[reqPreferredContentType]},`;
   }
 
   return "body: params.requestBody";
@@ -29,5 +29,5 @@ const getBodyProp = (requestBodyContentTypes: string[]) => {
 
 const isHandledContentType = (
   contentType: string
-): contentType is keyof typeof REQUEST_BODY_TYPE =>
-  Object.hasOwn(REQUEST_BODY_TYPE, contentType);
+): contentType is keyof typeof REQ_BODY_CONTENT_TYPE_DICT =>
+  Object.hasOwn(REQ_BODY_CONTENT_TYPE_DICT, contentType);

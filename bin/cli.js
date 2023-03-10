@@ -4,6 +4,7 @@ import main from "../dist/main.js";
 import { writeToDisk } from "../dist/writer/writeToDisk.js";
 
 const cli = async () => {
+  console.time("Measured time");
   const [, , ...args] = process.argv;
 
   const flags = parser(args, {
@@ -24,6 +25,7 @@ const cli = async () => {
   });
 
   writeToDisk(outputString, pathToOutput);
+  console.timeEnd("Measured time");
 };
 
 cli();

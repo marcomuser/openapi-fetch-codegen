@@ -19,4 +19,5 @@ export const printFetchFns = (operations: ExtractedOperations) => {
 const printFetchFn = (operation: ExtractedOperation) =>
   `${printFnHeader(operation)}
   ${printFnBody(operation)}
+  
   `;

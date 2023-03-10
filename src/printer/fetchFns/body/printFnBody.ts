@@ -4,8 +4,7 @@ import { printReturn } from "./printReturn.js";
 import { printUrl } from "./printUrl.js";
 
 export const printFnBody = (operation: ExtractedOperation) =>
-  `{
-    ${printOptions(operation)}
+  `${printOptions(operation)}
   
   ${printUrl(operation)}
     
