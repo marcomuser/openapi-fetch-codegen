@@ -6,14 +6,13 @@ import { printFnBody } from "./body/printFnBody.js";
 import { printFnHeader } from "./header/printFnHeader.js";
 
 export const printFetchFns = (operations: ExtractedOperations) => {
-  const fetchFns = [];
+  let fetchFns = "";
 
   for (const operation of operations) {
-    const fetchFn = printFetchFn(operation);
-    fetchFns.push(fetchFn);
+    fetchFns += printFetchFn(operation);
   }
 
-  return fetchFns.join("");
+  return fetchFns;
 };
 
 const printFetchFn = (operation: ExtractedOperation) =>
