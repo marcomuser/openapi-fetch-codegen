@@ -22,7 +22,7 @@ const printSwitchStatement = ({
     `;
 
   for (const status of resWithPreferredContentType.keys()) {
-    if (resWithPreferredContentType.has(status) && status !== "default") {
+    if (status !== "default") {
       switchStatement += `case ${status}: 
         return {
           response,
@@ -33,13 +33,6 @@ const printSwitchStatement = ({
       )}"],
         };
         `;
-    } else if (status !== "default") {
-      switchStatement += `case ${status}:
-        return {
-          response,
-          data: undefined,
-        };
-      `;
     }
   }
 
@@ -72,7 +65,7 @@ const getDataValue = (preferredContentType: string) => {
     return `(await response${RES_CONTENT_TYPE_DICT[preferredContentType]})`;
   }
 
-  return "response.body";
+  return "undefined";
 };
 
 const isHandledContentType = (
