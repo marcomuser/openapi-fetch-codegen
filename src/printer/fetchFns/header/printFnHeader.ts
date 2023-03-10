@@ -10,7 +10,7 @@ export const printFnHeader = ({
     : "";
 
   const reqBodyTypeRef = reqPreferredContentType
-    ? `operations["${operationId}"]["requestBody"]["content"]["${reqPreferredContentType}"]`
+    ? `Exclude<operations["${operationId}"]["requestBody"], undefined>["content"]["${reqPreferredContentType}"]`
     : "";
 
   const params = getParams(parametersTypeRef, reqBodyTypeRef);
