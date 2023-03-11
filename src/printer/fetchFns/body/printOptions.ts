@@ -8,15 +8,9 @@ export const printOptions = ({
 }: ExtractedOperation) => {
   let optionsProps = `method: "${method}",`;
 
-  optionsProps += reqContentType
-    ? `
-    ${getBodyProp(reqContentType)},`
-    : "";
+  optionsProps += getBodyProp(reqContentType);
 
-  optionsProps += parameterTypes.header
-    ? `
-    ${getHeadersProp(parameterTypes)},`
-    : "";
+  optionsProps += getHeadersProp(parameterTypes);
 
   return `const options: RequestInit = {
     ${optionsProps}
@@ -30,18 +24,26 @@ export const printOptions = ({
 const getHeadersProp = (
   parameterTypes: ExtractedOperation["parameterTypes"]
 ) => {
-  if (parameterTypes.header) {
-    return `headers: new Headers(params.header)`;
+  if (!parameterTypes.header) {
+    return "";
   }
-  return "";
+
+  return `
+    headers: new Headers(params.header),`;
 };
 
-const getBodyProp = (reqContentType: string) => {
-  if (isHandledContentType(reqContentType)) {
-    return `body: ${REQ_BODY_CONTENT_TYPE_DICT[reqContentType]}`;
+const getBodyProp = (reqContentType: ExtractedOperation["reqContentType"]) => {
+  if (!reqContentType) {
+    return "";
   }
 
-  return "body: params.requestBody";
+  if (isHandledContentType(reqContentType)) {
+    return `
+    body: ${REQ_BODY_CONTENT_TYPE_DICT[reqContentType]},`;
+  }
+
+  return `
+    body: params.requestBody,`;
 };
 
 const isHandledContentType = (
