@@ -9,9 +9,9 @@ export const printReturn = (operation: ExtractedOperation) => {
 
 const printSwitchStatement = ({
   operationId,
-  resWithSortedContentType,
+  responsesWithContentType,
 }: ExtractedOperation) => {
-  if (!resWithSortedContentType.size) {
+  if (!responsesWithContentType.size) {
     return `return {
       response,
       data: undefined,
@@ -21,14 +21,14 @@ const printSwitchStatement = ({
   let switchStatement = `switch (response.status) {
     `;
 
-  for (const status of resWithSortedContentType.keys()) {
+  for (const status of responsesWithContentType.keys()) {
     if (status !== "default") {
       switchStatement += `case ${status}: 
         return {
           response,
           data: ${getDataValue(
-            resWithSortedContentType.get(status) as string
-          )} as operations["${operationId}"]["responses"]["${status}"]["content"]["${resWithSortedContentType.get(
+            responsesWithContentType.get(status) as string
+          )} as operations["${operationId}"]["responses"]["${status}"]["content"]["${responsesWithContentType.get(
         status
       )}"],
         };
@@ -36,13 +36,13 @@ const printSwitchStatement = ({
     }
   }
 
-  if (resWithSortedContentType.has("default")) {
+  if (responsesWithContentType.has("default")) {
     switchStatement += `default:
     return {
       response,
       data: ${getDataValue(
-        resWithSortedContentType.get("default") as string
-      )} as operations["${operationId}"]["responses"]["default"]["content"]["${resWithSortedContentType.get(
+        responsesWithContentType.get("default") as string
+      )} as operations["${operationId}"]["responses"]["default"]["content"]["${responsesWithContentType.get(
       "default"
     )}"],
     };

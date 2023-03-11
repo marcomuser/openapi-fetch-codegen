@@ -27,10 +27,10 @@ export const getOperations = (spec: Document) => {
           hasQueryParams: (methodSchema.parameters as Parameter[])?.some(
             (p) => p.in === "query"
           ),
-          reqSortedContentType: getReqSortedContentType(
+          reqContentType: getReqSortedContentType(
             methodSchema.requestBody as RequestBody | undefined
           ),
-          resWithSortedContentType: getResWithSortedContentType(
+          responsesWithContentType: getResWithSortedContentType(
             methodSchema.responses
           ),
         };
