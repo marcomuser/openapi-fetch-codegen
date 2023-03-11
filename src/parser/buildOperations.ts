@@ -9,7 +9,7 @@ import { getParameterTypes } from "./getParameterTypes.js";
 import { getReqSortedContentType } from "./getReqSortedContentType.js";
 import { getResWithSortedContentType } from "./getResWithSortedContentType.js";
 
-export const getOperations = (spec: Document) => {
+export const buildOperations = (spec: Document) => {
   const operations = [];
   const paths = spec.paths || {};
 
@@ -44,5 +44,5 @@ export const getOperations = (spec: Document) => {
   return operations;
 };
 
-export type ExtractedOperations = ReturnType<typeof getOperations>;
+export type ExtractedOperations = ReturnType<typeof buildOperations>;
 export type ExtractedOperation = ExtractedOperations[number];

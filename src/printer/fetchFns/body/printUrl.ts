@@ -1,4 +1,4 @@
-import type { ExtractedOperation } from "../../../parser/getOperations.js";
+import type { ExtractedOperation } from "../../../parser/buildOperations.js";
 
 export const printUrl = ({ path, parameterTypes }: ExtractedOperation) => {
   const replacedPath = replacePathParams(path);
