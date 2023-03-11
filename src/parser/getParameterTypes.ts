@@ -15,9 +15,9 @@ export const getParameterTypes = (parameters?: Parameter[]) => {
       } else if (p.in === "cookie") {
         types.cookie = true;
       } else if (p.in === "header") {
-        types.cookie = true;
-      } else if (p.in === "path") {
         types.header = true;
+      } else if (p.in === "path") {
+        types.path = true;
       }
     }
   }

@@ -4,11 +4,13 @@ import { REQ_BODY_CONTENT_TYPE_DICT } from "../../../utils/constants.js";
 export const printOptions = ({
   method,
   reqContentType,
+  parameterTypes,
 }: ExtractedOperation) => {
-  const optionsProps = !reqContentType
-    ? `method: "${method}"`
-    : `method: "${method}",
-    ${getBodyProp(reqContentType)}`;
+  let optionsProps = `method: "${method}",`;
+
+  optionsProps += getBodyProp(reqContentType);
+
+  optionsProps += getHeadersProp(parameterTypes);
 
   return `const options: RequestInit = {
     ${optionsProps}
@@ -19,12 +21,29 @@ export const printOptions = ({
   Object.assign(options, rest);`;
 };
 
-const getBodyProp = (reqContentType: string) => {
-  if (isHandledContentType(reqContentType)) {
-    return `body: ${REQ_BODY_CONTENT_TYPE_DICT[reqContentType]},`;
+const getHeadersProp = (
+  parameterTypes: ExtractedOperation["parameterTypes"]
+) => {
+  if (!parameterTypes.header) {
+    return "";
   }
 
-  return "body: params.requestBody";
+  return `
+    headers: new Headers(params.header),`;
+};
+
+const getBodyProp = (reqContentType: ExtractedOperation["reqContentType"]) => {
+  if (!reqContentType) {
+    return "";
+  }
+
+  if (isHandledContentType(reqContentType)) {
+    return `
+    body: ${REQ_BODY_CONTENT_TYPE_DICT[reqContentType]},`;
+  }
+
+  return `
+    body: params.requestBody,`;
 };
 
 const isHandledContentType = (

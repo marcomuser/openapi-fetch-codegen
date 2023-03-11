@@ -6,7 +6,7 @@ export const printFnHeader = ({
   reqContentType,
 }: ExtractedOperation) => {
   const parametersTypeRef = hasParameters
-    ? `operations["${operationId}"]["parameters"]`
+    ? `Exclude<operations["${operationId}"]["parameters"], "cookie">`
     : "";
 
   const reqBodyTypeRef = reqContentType
