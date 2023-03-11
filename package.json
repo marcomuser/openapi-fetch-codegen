@@ -17,7 +17,7 @@
     "/dist"
   ],
   "scripts": {
-    "build": "tsc",
+    "build": "rimraf dist && tsc",
     "generate": "node ./bin/cli.js https://petstore3.swagger.io/api/v3/openapi.json --t=./petTypes.js --o=./generated/petFetch.ts",
     "lint": "eslint --max-warnings 0",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -46,6 +46,7 @@
     "eslint-config-prettier": "^8.7.0",
     "openapi3-ts": "^3.2.0",
     "prettier": "^2.8.4",
+    "rimraf": "^4.4.0",
     "typescript": "^4.9.5"
   }
 }
