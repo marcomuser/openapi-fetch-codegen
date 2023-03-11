@@ -34,5 +34,6 @@ node_modules/
 # dotenv environment variables file
 .env
 
-# Local generated test files
+# Other
 generated
+.vscode

@@ -1,16 +1,16 @@
-import type { ExtractedOperation } from "../../../parser/getOperations.js";
+import type { ExtractedOperation } from "../../../parser/buildOperations.js";
 
 export const printFnHeader = ({
   operationId,
   hasParameters,
-  reqPreferredContentType,
+  reqContentType,
 }: ExtractedOperation) => {
   const parametersTypeRef = hasParameters
     ? `operations["${operationId}"]["parameters"]`
     : "";
 
-  const reqBodyTypeRef = reqPreferredContentType
-    ? `Exclude<operations["${operationId}"]["requestBody"], undefined>["content"]["${reqPreferredContentType}"]`
+  const reqBodyTypeRef = reqContentType
+    ? `Exclude<operations["${operationId}"]["requestBody"], undefined>["content"]["${reqContentType}"]`
     : "";
 
   const params = getParams(parametersTypeRef, reqBodyTypeRef);

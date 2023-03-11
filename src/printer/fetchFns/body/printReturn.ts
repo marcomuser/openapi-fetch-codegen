@@ -1,4 +1,4 @@
-import type { ExtractedOperation } from "../../../parser/getOperations.js";
+import type { ExtractedOperation } from "../../../parser/buildOperations.js";
 import { RES_CONTENT_TYPE_DICT } from "../../../utils/constants.js";
 
 export const printReturn = (operation: ExtractedOperation) => {
@@ -9,9 +9,9 @@ export const printReturn = (operation: ExtractedOperation) => {
 
 const printSwitchStatement = ({
   operationId,
-  resWithPreferredContentType,
+  responsesWithContentType,
 }: ExtractedOperation) => {
-  if (!resWithPreferredContentType.size) {
+  if (!responsesWithContentType.size) {
     return `return {
       response,
       data: undefined,
@@ -21,35 +21,28 @@ const printSwitchStatement = ({
   let switchStatement = `switch (response.status) {
     `;
 
-  for (const status of resWithPreferredContentType.keys()) {
-    if (resWithPreferredContentType.has(status) && status !== "default") {
+  for (const status of responsesWithContentType.keys()) {
+    if (status !== "default") {
       switchStatement += `case ${status}: 
         return {
           response,
           data: ${getDataValue(
-            resWithPreferredContentType.get(status) as string
-          )} as operations["${operationId}"]["responses"]["${status}"]["content"]["${resWithPreferredContentType.get(
+            responsesWithContentType.get(status) as string
+          )} as operations["${operationId}"]["responses"]["${status}"]["content"]["${responsesWithContentType.get(
         status
       )}"],
         };
         `;
-    } else if (status !== "default") {
-      switchStatement += `case ${status}:
-        return {
-          response,
-          data: undefined,
-        };
-      `;
     }
   }
 
-  if (resWithPreferredContentType.has("default")) {
+  if (responsesWithContentType.has("default")) {
     switchStatement += `default:
     return {
       response,
       data: ${getDataValue(
-        resWithPreferredContentType.get("default") as string
-      )} as operations["${operationId}"]["responses"]["default"]["content"]["${resWithPreferredContentType.get(
+        responsesWithContentType.get("default") as string
+      )} as operations["${operationId}"]["responses"]["default"]["content"]["${responsesWithContentType.get(
       "default"
     )}"],
     };
@@ -72,7 +65,7 @@ const getDataValue = (preferredContentType: string) => {
     return `(await response${RES_CONTENT_TYPE_DICT[preferredContentType]})`;
   }
 
-  return "response.body";
+  return "undefined";
 };
 
 const isHandledContentType = (
