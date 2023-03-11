@@ -1,9 +1,9 @@
 import type { ExtractedOperation } from "../../../parser/getOperations.js";
 
-export const printUrl = ({ path, hasQueryParams }: ExtractedOperation) => {
+export const printUrl = ({ path, parameterTypes }: ExtractedOperation) => {
   const replacedPath = replacePathParams(path);
 
-  return !hasQueryParams
+  return !parameterTypes.query
     ? `const url = new URL(\`${replacedPath}\`, baseUrl);`
     : `const url = new URL(\`${replacedPath}\`, baseUrl);
     ${searchParams}

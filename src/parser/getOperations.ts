@@ -5,6 +5,7 @@ import type {
   Parameter,
   RequestBody,
 } from "../utils/types.js";
+import { getParameterTypes } from "./getParameterTypes.js";
 import { getReqSortedContentType } from "./getReqSortedContentType.js";
 import { getResWithSortedContentType } from "./getResWithSortedContentType.js";
 
@@ -24,8 +25,8 @@ export const getOperations = (spec: Document) => {
           method: method.toUpperCase(),
           operationId: methodSchema.operationId,
           hasParameters: Boolean(methodSchema.parameters?.length),
-          hasQueryParams: (methodSchema.parameters as Parameter[])?.some(
-            (p) => p.in === "query"
+          parameterTypes: getParameterTypes(
+            methodSchema.parameters as Parameter[] | undefined
           ),
           reqContentType: getReqSortedContentType(
             methodSchema.requestBody as RequestBody | undefined
