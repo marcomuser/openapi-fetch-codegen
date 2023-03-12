@@ -28,6 +28,6 @@ const searchParams = `const searchParams = new URLSearchParams();
     } else if (typeof value === "object") {
       searchParams.set(key, JSON.stringify(value));
     } else {
-      searchParams.set(key, value);
+      searchParams.set(key, String(value));
     }
   }`;
