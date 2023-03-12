@@ -1,13 +1,13 @@
 import {
-  OpenAPIObject,
+  OpenAPI3,
   OperationObject,
   ParameterObject,
   RequestBodyObject,
   ResponsesObject,
   ResponseObject,
-} from "openapi3-ts";
+} from "openapi-typescript";
 
-export type Document = OpenAPIObject;
+export type Document = OpenAPI3;
 
 export type Operation = OperationObject;
 
