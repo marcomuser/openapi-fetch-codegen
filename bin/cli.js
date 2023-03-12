@@ -45,6 +45,8 @@ const cli = async () => {
   } catch (err) {
     if (err.code === "ENOENT") {
       await fs.mkdir(pathToOutputDir);
+    } else {
+      throw err;
     }
   }
 
