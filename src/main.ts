@@ -1,4 +1,4 @@
-import { parseSpec } from "./parser/parseSpec.js";
+import { transformSpec } from "./transformer/transformSpec.js";
 import { printDocument } from "./printer/printDocument.js";
 
 type TInput = {
@@ -7,7 +7,7 @@ type TInput = {
 };
 
 export default async function main({ pathToSpec, pathToTypes }: TInput) {
-  const { operations, types } = await parseSpec(pathToSpec);
+  const { operations, types } = await transformSpec(pathToSpec);
   const document = printDocument(operations, pathToTypes);
   return { document, types };
 }

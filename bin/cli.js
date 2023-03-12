@@ -4,7 +4,7 @@ import parser from "yargs-parser";
 import main from "../dist/main.js";
 
 const cli = async () => {
-  console.time("Measured time");
+  console.time("Generated files in");
   const [, , ...args] = process.argv;
 
   const flags = parser(args, {
@@ -31,7 +31,7 @@ const cli = async () => {
 
   await Promise.all(promises);
 
-  console.timeEnd("Measured time");
+  console.timeEnd("Generated files in");
 };
 
 cli();

@@ -1,5 +1,5 @@
-import { PREFERRED_REQ_CONTENT_TYPES } from "../utils/constants.js";
-import type { RequestBody } from "../utils/types.js";
+import { PREFERRED_REQ_CONTENT_TYPES } from "../../utils/constants.js";
+import type { RequestBody } from "../../utils/types.js";
 
 export const getReqSortedContentType = (requestBody?: RequestBody) => {
   if (!requestBody?.content) {

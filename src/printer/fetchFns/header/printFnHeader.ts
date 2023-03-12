@@ -1,4 +1,4 @@
-import type { ExtractedOperation } from "../../../parser/buildOperations.js";
+import type { ExtractedOperation } from "../../../transformer/operations/buildOperations.js";
 
 export const printFnHeader = ({
   operationId,
