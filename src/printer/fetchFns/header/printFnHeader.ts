@@ -20,7 +20,7 @@ export const printFnHeader = ({
     config: ExtRequestInit`
     : `config: ExtRequestInit`;
 
-  return `export const ${getSanitizedFnName(operationId as string)} = async(
+  return `export const ${getSanitizedFnName(operationId as string)} = async (
     ${args}
   ) => {`;
 };
