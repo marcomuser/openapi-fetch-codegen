@@ -1,7 +1,7 @@
 #!/usr/bin/env node
+import fs from "node:fs/promises";
 import parser from "yargs-parser";
 import main from "../dist/main.js";
-import { writeToDisk } from "../dist/writer/writeToDisk.js";
 
 const cli = async () => {
   console.time("Measured time");
@@ -24,7 +24,8 @@ const cli = async () => {
     pathToTypes,
   });
 
-  writeToDisk(outputString, pathToOutput);
+  await fs.writeFile(pathToOutput, outputString, "utf8");
+
   console.timeEnd("Measured time");
 };
 
