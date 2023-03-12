@@ -24,9 +24,10 @@ export const REQ_BODY_CONTENT_TYPE_DICT = {
   "multipart/form-data": "new FormData(params.requestBody)",
 } as const;
 
-export const PREFERRED_RES_CONTENT_TYPES = ["application/json"];
+export const PREFERRED_RES_CONTENT_TYPES = ["application/json", "text/plain"];
 
 export const RES_CONTENT_TYPE_DICT = {
   "application/json": ".json()",
+  "text/plain": ".text()",
   "text/html": ".text()",
 } as const;
