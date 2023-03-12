@@ -1,4 +1,4 @@
-import { ExtractedOperations } from "../transformer/operations/buildOperations.js";
+import type { ExtractedOperations } from "../transformer/operations/buildOperations.js";
 import { printFetchFns } from "./fetchFns/printFetchFns.js";
 import { printComment } from "./header/printComment.js";
 import { printImports } from "./header/printImports.js";
