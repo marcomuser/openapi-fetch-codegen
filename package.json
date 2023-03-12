@@ -18,7 +18,7 @@
   ],
   "scripts": {
     "build": "rimraf dist && tsc",
-    "generate": "node ./bin/cli.js https://petstore3.swagger.io/api/v3/openapi.json --t=./petTypes.js --o=./generated/petFetch.ts",
+    "generate": "node ./bin/cli.js ./generated/github-api.yaml --t=./github-api.js --o=./generated/github-operations.ts",
     "lint": "eslint --max-warnings 0",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -45,6 +45,7 @@
   "homepage": "https://github.com/marcomuser/openapi-fetch#readme",
   "dependencies": {
     "@apidevtools/json-schema-ref-parser": "^10.1.0",
+    "openapi-typescript": "^6.2.0",
     "yargs-parser": "^21.1.1"
   },
   "devDependencies": {
