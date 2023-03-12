@@ -1,13 +1,15 @@
-import { parseSpec } from "./parser/parseSpec.js";
+import { transformSpec } from "./transformer/transformSpec.js";
 import { printDocument } from "./printer/printDocument.js";
+import { OTSOptions } from "./utils/types.js";
 
-type TInput = {
-  pathToSpec: string;
-  pathToTypes: string;
-};
-
-export default async function main({ pathToSpec, pathToTypes }: TInput) {
-  const operations = await parseSpec(pathToSpec);
-  const document = printDocument(operations, pathToTypes);
-  return document;
+export default async function main(
+  pathToSpec: string,
+  openAPITSOptions: OTSOptions = {}
+) {
+  const { operations, typesDoc } = await transformSpec(
+    pathToSpec,
+    openAPITSOptions
+  );
+  const operationsDoc = printDocument(operations);
+  return { operationsDoc, typesDoc };
 }

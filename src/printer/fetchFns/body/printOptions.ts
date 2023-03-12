@@ -1,4 +1,4 @@
-import type { ExtractedOperation } from "../../../parser/buildOperations.js";
+import type { ExtractedOperation } from "../../../transformer/operations/buildOperations.js";
 import { REQ_BODY_CONTENT_TYPE_DICT } from "../../../utils/constants.js";
 
 export const printOptions = ({

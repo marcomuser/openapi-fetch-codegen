@@ -1,10 +1,10 @@
-import { HTTP_VERBS } from "../utils/constants.js";
+import { HTTP_VERBS } from "../../utils/constants.js";
 import type {
   Document,
   Operation,
   Parameter,
   RequestBody,
-} from "../utils/types.js";
+} from "../../utils/types.js";
 import { getParameterTypes } from "./getParameterTypes.js";
 import { getReqSortedContentType } from "./getReqSortedContentType.js";
 import { getResWithSortedContentType } from "./getResWithSortedContentType.js";

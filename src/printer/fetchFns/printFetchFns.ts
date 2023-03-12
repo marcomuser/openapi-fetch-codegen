@@ -1,7 +1,7 @@
 import type {
   ExtractedOperations,
   ExtractedOperation,
-} from "../../parser/buildOperations.js";
+} from "../../transformer/operations/buildOperations.js";
 import { printFnBody } from "./body/printFnBody.js";
 import { printFnHeader } from "./header/printFnHeader.js";
 

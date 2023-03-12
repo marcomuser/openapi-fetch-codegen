@@ -1,4 +1,4 @@
-import type { ExtractedOperation } from "../../../parser/buildOperations.js";
+import type { ExtractedOperation } from "../../../transformer/operations/buildOperations.js";
 import { RES_CONTENT_TYPE_DICT } from "../../../utils/constants.js";
 
 export const printReturn = (operation: ExtractedOperation) => {
@@ -27,10 +27,10 @@ const printSwitchStatement = ({
         return {
           response,
           data: ${getDataValue(
-            responsesWithContentType.get(status) as string
-          )} as operations["${operationId}"]["responses"]["${status}"]["content"]["${responsesWithContentType.get(
-        status
-      )}"],
+            status,
+            responsesWithContentType.get(status) as string,
+            operationId
+          )},
         };
         `;
     }
@@ -41,10 +41,10 @@ const printSwitchStatement = ({
     return {
       response,
       data: ${getDataValue(
-        responsesWithContentType.get("default") as string
-      )} as operations["${operationId}"]["responses"]["default"]["content"]["${responsesWithContentType.get(
-      "default"
-    )}"],
+        "default",
+        responsesWithContentType.get("default") as string,
+        operationId
+      )},
     };
     };
     `;
@@ -60,9 +60,13 @@ const printSwitchStatement = ({
   return switchStatement;
 };
 
-const getDataValue = (preferredContentType: string) => {
+const getDataValue = (
+  status: string,
+  preferredContentType: string,
+  operationId?: string
+) => {
   if (isHandledContentType(preferredContentType)) {
-    return `(await response${RES_CONTENT_TYPE_DICT[preferredContentType]})`;
+    return `(await response${RES_CONTENT_TYPE_DICT[preferredContentType]}) as operations["${operationId}"]["responses"]["${status}"]["content"]["${preferredContentType}"]`;
   }
 
   return "undefined";

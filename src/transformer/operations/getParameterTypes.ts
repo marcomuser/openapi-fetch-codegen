@@ -1,4 +1,4 @@
-import type { Parameter } from "../utils/types.js";
+import type { Parameter } from "../../utils/types.js";
 
 export const getParameterTypes = (parameters?: Parameter[]) => {
   const types: Record<Parameter["in"], boolean> = {

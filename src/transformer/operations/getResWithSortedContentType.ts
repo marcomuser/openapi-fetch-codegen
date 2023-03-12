@@ -1,7 +1,7 @@
-import { PREFERRED_RES_CONTENT_TYPES } from "../utils/constants.js";
-import type { Response, Responses } from "../utils/types.js";
+import { PREFERRED_RES_CONTENT_TYPES } from "../../utils/constants.js";
+import type { Response, Responses } from "../../utils/types.js";
 
-export const getResWithSortedContentType = (responses: Responses) => {
+export const getResWithSortedContentType = (responses?: Responses) => {
   const resWithSortedContentTypes = new Map<string, string>();
 
   for (const statusCode in responses) {
