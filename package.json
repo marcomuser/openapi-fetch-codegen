@@ -18,7 +18,7 @@
   ],
   "scripts": {
     "build": "rimraf dist && tsc",
-    "generate": "node ./bin/cli.js ./generated/github-api.yaml --o ./generated/github-operations.ts --t ./generated/github-types.ts",
+    "generate": "node ./bin/cli.js ./generated/github-api.yaml --o ./generated/github/",
     "lint": "eslint --max-warnings 0",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

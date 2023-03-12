@@ -8,25 +8,35 @@ const cli = async () => {
   const [, , ...args] = process.argv;
 
   const flags = parser(args, {
-    string: ["types", "output"],
+    string: ["output"],
     alias: {
-      types: ["t"],
       output: ["o"],
     },
   });
 
   const pathToSpec = flags._[0];
-  const pathToTypes = flags.types;
-  const pathToOutput = flags.output;
+  const pathToOutputDir = new URL(
+    flags.output,
+    new URL(`file://${process.cwd()}/`)
+  );
 
-  const { document, types } = await main({
-    pathToSpec,
-    pathToTypes,
-  });
+  const { operationsDoc, typesDoc } = await main(pathToSpec);
+
+  try {
+    await fs.access(pathToOutputDir);
+  } catch (err) {
+    if (err.code === "ENOENT") {
+      await fs.mkdir(pathToOutputDir);
+    }
+  }
 
   const promises = [
-    fs.writeFile(pathToOutput, document, "utf8"),
-    fs.writeFile(pathToTypes, types, "utf8"),
+    fs.writeFile(
+      new URL("operations.ts", pathToOutputDir),
+      operationsDoc,
+      "utf8"
+    ),
+    fs.writeFile(new URL("types.ts", pathToOutputDir), typesDoc, "utf8"),
   ];
 
   await Promise.all(promises);

@@ -5,11 +5,10 @@ import { printImports } from "./header/printImports.js";
 import { printSharedTypes } from "./header/printSharedTypes.js";
 
 export const printDocument = (
-  operations: ExtractedOperations,
-  pathToTypes: string
+  operations: ExtractedOperations
 ) => `${printComment()}
   
-  ${printImports(pathToTypes)}
+  ${printImports()}
 
   ${printSharedTypes()}
 

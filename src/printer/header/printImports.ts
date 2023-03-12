@@ -1,2 +1,2 @@
-export const printImports = (pathToTypes: string) =>
-  `import type { operations } from "${pathToTypes}"`;
+export const printImports = () =>
+  `import type { operations } from "./types.js"`;
