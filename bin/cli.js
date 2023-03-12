@@ -19,12 +19,17 @@ const cli = async () => {
   const pathToTypes = flags.types;
   const pathToOutput = flags.output;
 
-  const outputString = await main({
+  const { document, types } = await main({
     pathToSpec,
     pathToTypes,
   });
 
-  await fs.writeFile(pathToOutput, outputString, "utf8");
+  const promises = [
+    fs.writeFile(pathToOutput, document, "utf8"),
+    fs.writeFile(pathToTypes, types, "utf8"),
+  ];
+
+  await Promise.all(promises);
 
   console.timeEnd("Measured time");
 };

@@ -7,7 +7,7 @@ type TInput = {
 };
 
 export default async function main({ pathToSpec, pathToTypes }: TInput) {
-  const operations = await parseSpec(pathToSpec);
+  const { operations, types } = await parseSpec(pathToSpec);
   const document = printDocument(operations, pathToTypes);
-  return document;
+  return { document, types };
 }
