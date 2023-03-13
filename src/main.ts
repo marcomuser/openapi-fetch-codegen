@@ -1,6 +1,6 @@
 import { transformSpec } from "./transformer/transformSpec.js";
 import { printDocument } from "./printer/printDocument.js";
-import { OTSOptions } from "./utils/types.js";
+import type { OTSOptions } from "./utils/types.js";
 
 export default async function main(
   pathToSpec: string,
