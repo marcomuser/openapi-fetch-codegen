@@ -6,7 +6,6 @@ import { printUrl } from "./printUrl.js";
 export const printFnBody = (operation: ExtractedOperation) =>
   `${printOptions(operation)}
   
-  ${printUrl(operation)}
+${printUrl(operation)}
     
-  ${printReturn(operation)}
-  };`;
+${printReturn(operation)}`;

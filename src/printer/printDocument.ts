@@ -9,10 +9,10 @@ export const printDocument = (
   operations: ExtractedOperations
 ) => `${printComment()}
   
-  ${printImports()}
+${printImports()}
 
-  ${printSharedTypes()}
+${printSharedTypes()}
 
-  ${printSerializer()}
+${printSerializer()}
 
-  ${printFetchFns(operations)}`;
+${printFetchFns(operations)}`;

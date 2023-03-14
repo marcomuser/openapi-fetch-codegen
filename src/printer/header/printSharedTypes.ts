@@ -6,6 +6,5 @@ export const printSharedTypes = () => {
   baseUrl: string;
 };
 
-type ExtRequestInit = RequestInit & TBaseUrl;
-`;
+type ExtRequestInit = RequestInit & TBaseUrl;`;
 };
