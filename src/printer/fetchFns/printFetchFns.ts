@@ -2,7 +2,7 @@ import type {
   ExtractedOperations,
   ExtractedOperation,
 } from "../../transformer/operations/buildOperations.js";
-import { nl } from "../../utils/formatter.js";
+import { indt, nl } from "../../utils/formatter.js";
 import { printFnBody } from "./body/printFnBody.js";
 import { printFnHeader } from "./header/printFnHeader.js";
 
@@ -18,4 +18,4 @@ export const printFetchFns = (operations: ExtractedOperations) => {
 
 const printFetchFn = (operation: ExtractedOperation) =>
   `${printFnHeader(operation)}
-  ${printFnBody(operation)}${nl(2)}`;
+${indt(printFnBody(operation))}${nl(1)}};${nl(2)}`;

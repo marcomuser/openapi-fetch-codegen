@@ -6,8 +6,8 @@ export const printUrl = ({ path, parameterTypes }: ExtractedOperation) => {
   return !parameterTypes.query
     ? `const url = new URL(\`${replacedPath}\`, baseUrl);`
     : `const url = new URL(\`${replacedPath}\`, baseUrl);
-    const searchParams = querySerializer(params.query);
-    url.search = searchParams.toString();`;
+const searchParams = querySerializer(params.query);
+url.search = searchParams.toString();`;
 };
 
 const replacePathParams = (path: string) => {

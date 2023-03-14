@@ -1,5 +1,6 @@
 import type { ExtractedOperation } from "../../../transformer/operations/buildOperations.js";
 import { REQ_BODY_CONTENT_TYPE_DICT } from "../../../utils/constants.js";
+import { indt, nl } from "../../../utils/formatter.js";
 
 export const printOptions = ({
   method,
@@ -13,12 +14,12 @@ export const printOptions = ({
   optionsProps += getHeadersProp(parameterTypes);
 
   return `const options: RequestInit = {
-    ${optionsProps}
-  };
+${indt(optionsProps)}
+};
 
-  const clonedConfig = structuredClone(config);
-  const { baseUrl, ...rest } = clonedConfig;
-  Object.assign(options, rest);`;
+const clonedConfig = structuredClone(config);
+const { baseUrl, ...rest } = clonedConfig;
+Object.assign(options, rest);`;
 };
 
 const getHeadersProp = (
@@ -28,8 +29,7 @@ const getHeadersProp = (
     return "";
   }
 
-  return `
-    headers: new Headers(params.header),`;
+  return `${nl()}headers: new Headers(params.header),`;
 };
 
 const getBodyProp = (reqContentType: ExtractedOperation["reqContentType"]) => {
@@ -38,12 +38,10 @@ const getBodyProp = (reqContentType: ExtractedOperation["reqContentType"]) => {
   }
 
   if (isHandledContentType(reqContentType)) {
-    return `
-    body: ${REQ_BODY_CONTENT_TYPE_DICT[reqContentType]},`;
+    return `${nl()}body: ${REQ_BODY_CONTENT_TYPE_DICT[reqContentType]},`;
   }
 
-  return `
-    body: params.requestBody,`;
+  return `${nl()}body: params.requestBody,`;
 };
 
 const isHandledContentType = (
