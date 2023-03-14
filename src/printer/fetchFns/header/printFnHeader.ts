@@ -17,12 +17,12 @@ export const printFnHeader = ({
 
   const args = params
     ? `${params}
-    config: ExtRequestInit`
+  config: ExtRequestInit`
     : `config: ExtRequestInit`;
 
   return `export const ${getSanitizedFnName(operationId as string)} = async (
-    ${args}
-  ) => {`;
+  ${args}
+) => {`;
 };
 
 const getParams = (parametersTypeRef: string, reqBodyTypeRef: string) => {
