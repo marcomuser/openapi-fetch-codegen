@@ -1,12 +1,12 @@
-import type { ExtractedOperation } from "../../../transformer/operations/buildOperations.js";
+import type { TransformedOperation } from "../../../transformer/operations/buildOperations.js";
 import { REQ_BODY_CONTENT_TYPE_DICT } from "../../../utils/constants.js";
-import { indt, nl } from "../../../utils/formatter.js";
+import { indt, nl } from "../../../utils/format.js";
 
 export const printOptions = ({
   method,
   reqContentType,
   parameterTypes,
-}: ExtractedOperation) => {
+}: TransformedOperation) => {
   let optionsProps = `method: "${method}",`;
 
   optionsProps += getBodyProp(reqContentType);
@@ -23,7 +23,7 @@ Object.assign(options, rest);`;
 };
 
 const getHeadersProp = (
-  parameterTypes: ExtractedOperation["parameterTypes"]
+  parameterTypes: TransformedOperation["parameterTypes"]
 ) => {
   if (!parameterTypes.header) {
     return "";
@@ -32,7 +32,9 @@ const getHeadersProp = (
   return `${nl()}headers: new Headers(params.header),`;
 };
 
-const getBodyProp = (reqContentType: ExtractedOperation["reqContentType"]) => {
+const getBodyProp = (
+  reqContentType: TransformedOperation["reqContentType"]
+) => {
   if (!reqContentType) {
     return "";
   }

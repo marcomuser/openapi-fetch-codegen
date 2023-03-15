@@ -1,11 +1,11 @@
 import { PREFERRED_RES_CONTENT_TYPES } from "../../utils/constants.js";
-import type { Response, Responses } from "../../utils/types.js";
+import type { ResponseObj, ResponsesObj } from "../../utils/types.js";
 
-export const getResWithSortedContentType = (responses?: Responses) => {
+export const getResWithSortedContentType = (responses?: ResponsesObj) => {
   const resWithSortedContentTypes = new Map<string, string>();
 
   for (const statusCode in responses) {
-    const response = responses[statusCode] as Response;
+    const response = responses[statusCode] as ResponseObj;
 
     if (response.content) {
       const contentTypes = Object.keys(response.content);

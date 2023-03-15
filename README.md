@@ -1,1 +1,1 @@
-# openapi-fetch
+# openapi-fetch-codegen

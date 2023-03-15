@@ -1,8 +1,8 @@
-import type { ExtractedOperation } from "../../../transformer/operations/buildOperations.js";
+import type { TransformedOperation } from "../../../transformer/operations/buildOperations.js";
 import { RES_CONTENT_TYPE_DICT } from "../../../utils/constants.js";
-import { indt, nl } from "../../../utils/formatter.js";
+import { indt, nl } from "../../../utils/format.js";
 
-export const printReturn = (operation: ExtractedOperation) => {
+export const printReturn = (operation: TransformedOperation) => {
   return `const response = await fetch(url, options);
   
 ${printSwitchStatement(operation)}`;
@@ -11,7 +11,7 @@ ${printSwitchStatement(operation)}`;
 const printSwitchStatement = ({
   operationId,
   responsesWithContentType,
-}: ExtractedOperation) => {
+}: TransformedOperation) => {
   if (!responsesWithContentType.size) {
     return `return {
   response,
