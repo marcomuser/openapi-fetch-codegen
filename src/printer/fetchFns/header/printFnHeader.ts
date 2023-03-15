@@ -1,10 +1,10 @@
-import type { ExtractedOperation } from "../../../transformer/operations/buildOperations.js";
+import type { TransformedOperation } from "../../../transformer/operations/buildOperations.js";
 
 export const printFnHeader = ({
   operationId,
   hasParameters,
   reqContentType,
-}: ExtractedOperation) => {
+}: TransformedOperation) => {
   const parametersTypeRef = hasParameters
     ? `Exclude<operations["${operationId}"]["parameters"], "cookie">`
     : "";

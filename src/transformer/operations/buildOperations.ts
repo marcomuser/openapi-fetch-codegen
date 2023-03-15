@@ -44,5 +44,5 @@ export const buildOperations = (spec: OpenAPIObj) => {
   return operations;
 };
 
-export type ExtractedOperations = ReturnType<typeof buildOperations>;
-export type ExtractedOperation = ExtractedOperations[number];
+export type TransformedOperations = ReturnType<typeof buildOperations>;
+export type TransformedOperation = TransformedOperations[number];

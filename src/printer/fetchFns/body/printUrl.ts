@@ -1,6 +1,6 @@
-import type { ExtractedOperation } from "../../../transformer/operations/buildOperations.js";
+import type { TransformedOperation } from "../../../transformer/operations/buildOperations.js";
 
-export const printUrl = ({ path, parameterTypes }: ExtractedOperation) => {
+export const printUrl = ({ path, parameterTypes }: TransformedOperation) => {
   const replacedPath = replacePathParams(path);
 
   return !parameterTypes.query

@@ -1,12 +1,12 @@
 import type {
-  ExtractedOperations,
-  ExtractedOperation,
+  TransformedOperations,
+  TransformedOperation,
 } from "../../transformer/operations/buildOperations.js";
 import { indt, nl } from "../../utils/format.js";
 import { printFnBody } from "./body/printFnBody.js";
 import { printFnHeader } from "./header/printFnHeader.js";
 
-export const printFetchFns = (operations: ExtractedOperations) => {
+export const printFetchFns = (operations: TransformedOperations) => {
   let fetchFns = "";
 
   for (const operation of operations) {
@@ -16,6 +16,6 @@ export const printFetchFns = (operations: ExtractedOperations) => {
   return fetchFns;
 };
 
-const printFetchFn = (operation: ExtractedOperation) =>
+const printFetchFn = (operation: TransformedOperation) =>
   `${printFnHeader(operation)}
 ${indt(printFnBody(operation))}${nl(1)}};${nl(2)}`;
