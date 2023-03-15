@@ -1,7 +1,7 @@
-import type { Parameter } from "../../utils/types.js";
+import type { ParameterObj } from "../../utils/types.js";
 
-export const getParameterTypes = (parameters?: Parameter[]) => {
-  const types: Record<Parameter["in"], boolean> = {
+export const getParameterTypes = (parameters?: ParameterObj[]) => {
+  const types: Record<ParameterObj["in"], boolean> = {
     query: false,
     cookie: false,
     header: false,
