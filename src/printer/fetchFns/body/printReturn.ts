@@ -1,6 +1,6 @@
 import type { ExtractedOperation } from "../../../transformer/operations/buildOperations.js";
 import { RES_CONTENT_TYPE_DICT } from "../../../utils/constants.js";
-import { indt, nl } from "../../../utils/formatter.js";
+import { indt, nl } from "../../../utils/format.js";
 
 export const printReturn = (operation: ExtractedOperation) => {
   return `const response = await fetch(url, options);

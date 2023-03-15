@@ -2,7 +2,7 @@ import type {
   ExtractedOperations,
   ExtractedOperation,
 } from "../../transformer/operations/buildOperations.js";
-import { indt, nl } from "../../utils/formatter.js";
+import { indt, nl } from "../../utils/format.js";
 import { printFnBody } from "./body/printFnBody.js";
 import { printFnHeader } from "./header/printFnHeader.js";
 

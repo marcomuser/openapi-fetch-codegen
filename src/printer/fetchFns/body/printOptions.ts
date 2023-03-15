@@ -1,6 +1,6 @@
 import type { ExtractedOperation } from "../../../transformer/operations/buildOperations.js";
 import { REQ_BODY_CONTENT_TYPE_DICT } from "../../../utils/constants.js";
-import { indt, nl } from "../../../utils/formatter.js";
+import { indt, nl } from "../../../utils/format.js";
 
 export const printOptions = ({
   method,
