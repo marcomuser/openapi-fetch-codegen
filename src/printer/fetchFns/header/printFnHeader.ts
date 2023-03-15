@@ -38,10 +38,8 @@ const getParams = (parametersTypeRef: string, reqBodyTypeRef: string) => {
 };
 
 const getSanitizedFnName = (operationId: string) => {
-  // Replace non-alphanumeric characters with spaces
   const sanitized = operationId.replaceAll(/\W/g, " ");
 
-  // Convert to camelCase and remove any leading or trailing spaces
   return sanitized
     .split(" ")
     .map((word, index) =>
