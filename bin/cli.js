@@ -4,7 +4,7 @@ import parser from "yargs-parser";
 import main from "../dist/main.js";
 
 const HELP = `Usage
-  $ openapi-fetch [input] [options]
+  $ openapi-fetch-codegen [input] [options]
 
 Options
   --help                       Display this
