@@ -32,10 +32,10 @@ const getHeadersProp = (
   parameterTypes: TransformedOperation["parameterTypes"]
 ) => {
   if (!parameterTypes.header) {
-    return `${nl()}headers: headersSerializer(headers, configHeaders),`;
+    return `${nl()}headers: serializeHeaders(headers, configHeaders),`;
   }
 
-  return `${nl()}headers: headersSerializer(headers, configHeaders, params.header),`;
+  return `${nl()}headers: serializeHeaders(headers, configHeaders, params.header),`;
 };
 
 const getBodyProp = (

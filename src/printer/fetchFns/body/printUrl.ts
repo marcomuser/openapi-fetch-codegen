@@ -6,7 +6,7 @@ export const printUrl = ({ path, parameterTypes }: TransformedOperation) => {
   return !parameterTypes.query
     ? `const url = new URL(\`${replacedPath}\`, baseUrl);`
     : `const url = new URL(\`${replacedPath}\`, baseUrl);
-const searchParams = querySerializer(params.query);
+const searchParams = serializeQuery(params.query);
 url.search = searchParams.toString();`;
 };
 

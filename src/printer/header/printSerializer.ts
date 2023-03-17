@@ -4,7 +4,7 @@ export const printSerializer = () => {
 ${headersSerializer}`;
 };
 
-const querySerializer = `const querySerializer = <T extends Record<string, unknown>>(query: T) => {
+const querySerializer = `const serializeQuery = <T extends Record<string, unknown>>(query: T) => {
   const searchParams = new URLSearchParams();
   for (const [key, value] of Object.entries(query)) {
     if (Array.isArray(value)) {
@@ -20,7 +20,7 @@ const querySerializer = `const querySerializer = <T extends Record<string, unkno
   return searchParams;
 };`;
 
-const headersSerializer = `const headersSerializer = <
+const headersSerializer = `const serializeHeaders = <
   T extends Headers,
   U extends HeadersInit,
   V extends Record<string, unknown>
