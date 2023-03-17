@@ -9,16 +9,22 @@ export const printOptions = ({
 }: TransformedOperation) => {
   let optionsProps = `method: "${method}",`;
 
-  optionsProps += getBodyProp(reqContentType);
-
   optionsProps += getHeadersProp(parameterTypes);
 
-  return `const options: RequestInit = {
+  optionsProps += getBodyProp(reqContentType);
+
+  return `const clonedConfig = structuredClone(config);
+const { baseUrl, headers: configHeaders, ...rest } = clonedConfig;
+
+const headers = new Headers({
+  "Content-Type": "application/json",
+  "Accept": "application/json"
+})
+
+const options: RequestInit = {
 ${indt(optionsProps)}
 };
 
-const clonedConfig = structuredClone(config);
-const { baseUrl, ...rest } = clonedConfig;
 Object.assign(options, rest);`;
 };
 
@@ -26,10 +32,10 @@ const getHeadersProp = (
   parameterTypes: TransformedOperation["parameterTypes"]
 ) => {
   if (!parameterTypes.header) {
-    return "";
+    return `${nl()}headers: headersSerializer(headers, configHeaders),`;
   }
 
-  return `${nl()}headers: new Headers(params.header),`;
+  return `${nl()}headers: headersSerializer(headers, configHeaders, params.header),`;
 };
 
 const getBodyProp = (
