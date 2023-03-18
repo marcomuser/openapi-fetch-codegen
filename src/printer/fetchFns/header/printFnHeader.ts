@@ -39,6 +39,11 @@ const getParams = (parametersTypeRef: string, reqBodyTypeRef: string) => {
 
 const getSanitizedFnName = (operationId: string) => {
   const sanitized = operationId.replaceAll(/\W/g, " ");
+  const hasNoWhitespace = /^\S*$/.test(sanitized);
+
+  if (hasNoWhitespace) {
+    return sanitized;
+  }
 
   return sanitized
     .split(" ")

@@ -8,17 +8,13 @@ export const printOptions = ({
   parameterTypes,
 }: TransformedOperation) => {
   let optionsProps = `method: "${method}",`;
-
-  optionsProps += getBodyProp(reqContentType);
-
   optionsProps += getHeadersProp(parameterTypes);
+  optionsProps += getBodyProp(reqContentType);
 
   return `const options: RequestInit = {
 ${indt(optionsProps)}
 };
 
-const clonedConfig = structuredClone(config);
-const { baseUrl, ...rest } = clonedConfig;
 Object.assign(options, rest);`;
 };
 
@@ -26,10 +22,10 @@ const getHeadersProp = (
   parameterTypes: TransformedOperation["parameterTypes"]
 ) => {
   if (!parameterTypes.header) {
-    return "";
+    return `${nl()}headers: serializeHeaders(headers, configHeaders),`;
   }
 
-  return `${nl()}headers: new Headers(params.header),`;
+  return `${nl()}headers: serializeHeaders(headers, configHeaders, params.header),`;
 };
 
 const getBodyProp = (

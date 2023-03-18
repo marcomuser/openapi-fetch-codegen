@@ -1,5 +1,10 @@
 export const printSerializer = () => {
-  return `const querySerializer = <T extends Record<string, unknown>>(query: T) => {
+  return `${querySerializer}
+
+${headersSerializer}`;
+};
+
+const querySerializer = `const serializeQuery = <T extends Record<string, unknown>>(query: T) => {
   const searchParams = new URLSearchParams();
   for (const [key, value] of Object.entries(query)) {
     if (Array.isArray(value)) {
@@ -14,4 +19,35 @@ export const printSerializer = () => {
   }
   return searchParams;
 };`;
-};
+
+const headersSerializer = `const serializeHeaders = <
+  T extends Headers,
+  U extends HeadersInit,
+  V extends Record<string, unknown>
+>(
+  headers: T,
+  configHeaders?: U,
+  paramHeader?: V
+) => {
+  if (paramHeader) {
+    for (const [key, value] of Object.entries(paramHeader)) {
+      if (typeof value === "string") {
+        headers.append(key, value);
+      } else if (Array.isArray(value)) {
+        headers.append(key, value.join(","));
+      }
+    }
+  }
+
+  if (configHeaders instanceof Headers) {
+    for (const [key, value] of configHeaders) {
+      headers.append(key, value);
+    }
+  } else if (typeof configHeaders === "object") {
+    for (const [key, value] of Object.entries(configHeaders)) {
+      headers.append(key, value);
+    }
+  }
+
+  return headers;
+};`;
