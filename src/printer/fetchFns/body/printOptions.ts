@@ -11,19 +11,7 @@ export const printOptions = ({
   optionsProps += getHeadersProp(parameterTypes);
   optionsProps += getBodyProp(reqContentType);
 
-  let headers = `"Accept": "application/json",`;
-  headers += reqContentType
-    ? `${nl()}"Content-Type": "${reqContentType}",`
-    : "";
-
-  return `const clonedConfig = structuredClone(config);
-const { baseUrl, headers: configHeaders, ...rest } = clonedConfig;
-
-const headers = new Headers({
-${indt(headers)}
-})
-
-const options: RequestInit = {
+  return `const options: RequestInit = {
 ${indt(optionsProps)}
 };
 
