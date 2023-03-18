@@ -33,6 +33,8 @@ const headersSerializer = `const serializeHeaders = <
     for (const [key, value] of Object.entries(paramHeader)) {
       if (typeof value === "string") {
         headers.append(key, value);
+      } else if (Array.isArray(value)) {
+        headers.append(key, value.join(","));
       }
     }
   }
