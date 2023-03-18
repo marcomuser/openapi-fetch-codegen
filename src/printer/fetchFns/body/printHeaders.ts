@@ -1,4 +1,5 @@
 import type { TransformedOperation } from "../../../transformer/operations/buildOperations.js";
+import { OMITTABLE_REQ_CONTENT_TYPES } from "../../../utils/constants.js";
 
 export const printHeaders = ({
   reqContentType,
@@ -14,25 +15,32 @@ const getHeaders = (
   reqContentType: TransformedOperation["reqContentType"],
   responsesWithContentType: TransformedOperation["responsesWithContentType"]
 ) => {
-  if (reqContentType && responsesWithContentType.size) {
+  const hasNonOmittableReqContentType = Boolean(
+    reqContentType &&
+      !OMITTABLE_REQ_CONTENT_TYPES[
+        reqContentType as keyof typeof OMITTABLE_REQ_CONTENT_TYPES
+      ]
+  );
+
+  if (hasNonOmittableReqContentType && responsesWithContentType.size) {
     return `new Headers({
-  "Accept": "${getAcceptHeaders(responsesWithContentType)}",
+  "Accept": "${getAcceptValue(responsesWithContentType)}",
   "Content-Type": "${reqContentType}",
 })`;
-  } else if (reqContentType && !responsesWithContentType.size) {
+  } else if (hasNonOmittableReqContentType && !responsesWithContentType.size) {
     return `new Headers({
   "Content-Type": "${reqContentType}",
 })`;
-  } else if (!reqContentType && responsesWithContentType.size) {
+  } else if (!hasNonOmittableReqContentType && responsesWithContentType.size) {
     return `new Headers({
-  "Accept": "${getAcceptHeaders(responsesWithContentType)}",
+  "Accept": "${getAcceptValue(responsesWithContentType)}",
 })`;
   } else {
     return "new Headers()";
   }
 };
 
-const getAcceptHeaders = (
+const getAcceptValue = (
   responsesWithContentType: TransformedOperation["responsesWithContentType"]
 ) => {
   const contentTypesSet = new Set<string>();

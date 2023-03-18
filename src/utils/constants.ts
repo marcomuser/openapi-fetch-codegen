@@ -9,6 +9,11 @@ export const HTTP_VERBS = {
   patch: true,
 } as const;
 
+export const OMITTABLE_REQ_CONTENT_TYPES = {
+  "multipart/form-data": true,
+  "application/x-www-form-urlencoded": true,
+} as const;
+
 export const PREFERRED_REQ_CONTENT_TYPES = [
   "application/json",
   "multipart/form-data",
