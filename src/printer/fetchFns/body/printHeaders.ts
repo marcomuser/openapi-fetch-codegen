@@ -14,25 +14,37 @@ const getHeaders = (
   reqContentType: TransformedOperation["reqContentType"],
   responsesWithContentType: TransformedOperation["responsesWithContentType"]
 ) => {
-  if (reqContentType && responsesWithContentType.size) {
+  const OMITTABLE_CONTENT_TYPES = {
+    "multipart/form-data": true,
+    "application/x-www-form-urlencoded": true,
+  } as const;
+
+  const hasNonOmittableReqContentType = Boolean(
+    reqContentType &&
+      !OMITTABLE_CONTENT_TYPES[
+        reqContentType as keyof typeof OMITTABLE_CONTENT_TYPES
+      ]
+  );
+
+  if (hasNonOmittableReqContentType && responsesWithContentType.size) {
     return `new Headers({
-  "Accept": "${getAcceptHeaders(responsesWithContentType)}",
+  "Accept": "${getAcceptValue(responsesWithContentType)}",
   "Content-Type": "${reqContentType}",
 })`;
-  } else if (reqContentType && !responsesWithContentType.size) {
+  } else if (hasNonOmittableReqContentType && !responsesWithContentType.size) {
     return `new Headers({
   "Content-Type": "${reqContentType}",
 })`;
-  } else if (!reqContentType && responsesWithContentType.size) {
+  } else if (!hasNonOmittableReqContentType && responsesWithContentType.size) {
     return `new Headers({
-  "Accept": "${getAcceptHeaders(responsesWithContentType)}",
+  "Accept": "${getAcceptValue(responsesWithContentType)}",
 })`;
   } else {
     return "new Headers()";
   }
 };
 
-const getAcceptHeaders = (
+const getAcceptValue = (
   responsesWithContentType: TransformedOperation["responsesWithContentType"]
 ) => {
   const contentTypesSet = new Set<string>();
