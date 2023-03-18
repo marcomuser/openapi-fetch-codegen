@@ -1,4 +1,5 @@
 import type { TransformedOperation } from "../../../transformer/operations/buildOperations.js";
+import { OMITTABLE_REQ_CONTENT_TYPES } from "../../../utils/constants.js";
 
 export const printHeaders = ({
   reqContentType,
@@ -14,15 +15,10 @@ const getHeaders = (
   reqContentType: TransformedOperation["reqContentType"],
   responsesWithContentType: TransformedOperation["responsesWithContentType"]
 ) => {
-  const OMITTABLE_CONTENT_TYPES = {
-    "multipart/form-data": true,
-    "application/x-www-form-urlencoded": true,
-  } as const;
-
   const hasNonOmittableReqContentType = Boolean(
     reqContentType &&
-      !OMITTABLE_CONTENT_TYPES[
-        reqContentType as keyof typeof OMITTABLE_CONTENT_TYPES
+      !OMITTABLE_REQ_CONTENT_TYPES[
+        reqContentType as keyof typeof OMITTABLE_REQ_CONTENT_TYPES
       ]
   );
 
