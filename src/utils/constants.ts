@@ -24,8 +24,7 @@ export const REQ_BODY_CONTENT_TYPE_DICT = {
   "*": "JSON.stringify(params.requestBody)",
   "application/*": "JSON.stringify(params.requestBody)",
   "application/json": "JSON.stringify(params.requestBody)",
-  "application/x-www-form-urlencoded":
-    "new URLSearchParams(params.requestBody)",
+  "application/x-www-form-urlencoded": "serializeQuery(params.requestBody)",
   "text/html": "params.requestBody",
   "text/plain": "params.requestBody",
   "text/plain charset=utf-8": "params.requestBody",
