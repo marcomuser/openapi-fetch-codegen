@@ -8,8 +8,8 @@ export const transformSpec = async (
   openAPITSOptions: OTSOptions
 ) => {
   const parser = new $RefParser();
-  const dereferencedSpec = (await parser.dereference(pathToSpec)) as OpenAPIObj;
-  const typesDoc = await openapiTS(dereferencedSpec, openAPITSOptions);
-  const operations = buildOperations(dereferencedSpec);
+  const bundledSpec = (await parser.bundle(pathToSpec)) as OpenAPIObj;
+  const typesDoc = await openapiTS(bundledSpec, openAPITSOptions);
+  const operations = buildOperations(bundledSpec);
   return { operations, typesDoc };
 };
