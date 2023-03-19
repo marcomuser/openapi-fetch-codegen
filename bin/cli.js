@@ -9,6 +9,7 @@ const HELP = `Usage
 Options
   --help                       Display this
   --output, -o                 Specify path to output directory
+  --parse, -p                  (optional) Specify parse mode - simple, bundle or dereference
 `;
 
 const cli = async () => {
@@ -19,6 +20,13 @@ const cli = async () => {
     string: ["output"],
     alias: {
       output: ["o"],
+      parse: ["p"],
+    },
+    choices: {
+      parse: ["simple, bundle, dereference"],
+    },
+    default: {
+      parse: "simple",
     },
   });
 
@@ -37,8 +45,9 @@ const cli = async () => {
     flags.output,
     new URL(`file://${process.cwd()}/`)
   );
+  const parseMode = flags.parse;
 
-  const { operationsDoc, typesDoc } = await main(pathToSpec);
+  const { operationsDoc, typesDoc } = await main({ pathToSpec, parseMode });
 
   try {
     await fs.access(pathToOutputDir);
@@ -60,7 +69,6 @@ const cli = async () => {
   ];
 
   await Promise.all(promises);
-
   console.timeEnd("Generated files in");
 };
 

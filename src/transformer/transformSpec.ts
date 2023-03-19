@@ -1,15 +1,29 @@
 import { $RefParser } from "@apidevtools/json-schema-ref-parser";
 import openapiTS from "openapi-typescript";
+import type { Args } from "../main.js";
 import type { OpenAPIObj, OTSOptions } from "../utils/types.js";
 import { buildOperations } from "./operations/buildOperations.js";
 
 export const transformSpec = async (
-  pathToSpec: string,
+  args: Args,
   openAPITSOptions: OTSOptions
 ) => {
-  const parser = new $RefParser();
-  const bundledSpec = (await parser.bundle(pathToSpec)) as OpenAPIObj;
-  const typesDoc = await openapiTS(bundledSpec, openAPITSOptions);
-  const operations = buildOperations(bundledSpec);
+  const spec = await parse(args);
+  const typesDoc = await openapiTS(spec, openAPITSOptions);
+  const operations = buildOperations(spec as OpenAPIObj);
   return { operations, typesDoc };
+};
+
+const parse = async ({ pathToSpec, parseMode }: Args) => {
+  const parser = new $RefParser();
+
+  switch (parseMode) {
+    case "bundle":
+      return await parser.bundle(pathToSpec);
+    case "dereference":
+      return await parser.dereference(pathToSpec);
+
+    default:
+      return await parser.parse(pathToSpec);
+  }
 };
