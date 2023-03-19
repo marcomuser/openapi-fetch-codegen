@@ -21,7 +21,7 @@ export const PREFERRED_REQ_CONTENT_TYPES = [
 ];
 
 export const REQ_BODY_CONTENT_TYPE_DICT = {
-  "*": "JSON.stringify(params.requestBody)",
+  "*/*": "JSON.stringify(params.requestBody)",
   "application/*": "JSON.stringify(params.requestBody)",
   "application/json": "JSON.stringify(params.requestBody)",
   "application/x-www-form-urlencoded": "serializeQuery(params.requestBody)",
@@ -34,7 +34,7 @@ export const REQ_BODY_CONTENT_TYPE_DICT = {
 export const PREFERRED_RES_CONTENT_TYPES = ["application/json", "text/plain"];
 
 export const RES_CONTENT_TYPE_DICT = {
-  "*": ".json()",
+  "*/*": ".json()",
   "application/*": ".json()",
   "application/json": ".json()",
   "text/plain": ".text()",
