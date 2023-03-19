@@ -1,11 +1,11 @@
 import { $RefParser } from "@apidevtools/json-schema-ref-parser";
 import openapiTS from "openapi-typescript";
-import type { Args } from "../main.js";
+import type { OFCArgs } from "../main.js";
 import type { OpenAPIObj, OTSOptions } from "../utils/types.js";
 import { buildOperations } from "./operations/buildOperations.js";
 
 export const transformSpec = async (
-  args: Args,
+  args: OFCArgs,
   openAPITSOptions: OTSOptions
 ) => {
   const spec = await parse(args);
@@ -14,7 +14,7 @@ export const transformSpec = async (
   return { operations, typesDoc };
 };
 
-const parse = async ({ pathToSpec, parseMode }: Args) => {
+const parse = async ({ pathToSpec, parseMode }: OFCArgs) => {
   const parser = new $RefParser();
 
   switch (parseMode) {
