@@ -23,7 +23,7 @@ const cli = async () => {
       parse: ["p"],
     },
     choices: {
-      parse: ["simple, bundle, dereference"],
+      parse: ["simple", "bundle", "dereference"],
     },
     default: {
       parse: "simple",
