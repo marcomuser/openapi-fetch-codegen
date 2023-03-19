@@ -4,7 +4,7 @@ import parser from "yargs-parser";
 import main from "../dist/main.js";
 
 const HELP = `Usage
-  $ openapi-fetch-codegen [input] [options]
+  $ openapi-fetch-codegen [path] [options]
 
 Options
   --help                       Display this
@@ -17,13 +17,10 @@ const cli = async () => {
   const [, , ...args] = process.argv;
 
   const flags = parser(args, {
-    string: ["output"],
+    string: ["output", "parse"],
     alias: {
       output: ["o"],
       parse: ["p"],
-    },
-    choices: {
-      parse: ["simple", "bundle", "dereference"],
     },
     default: {
       parse: "simple",
