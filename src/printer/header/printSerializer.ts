@@ -9,7 +9,7 @@ const querySerializer = `const serializeQuery = <T extends Record<string, unknow
   for (const [key, value] of Object.entries(query)) {
     if (Array.isArray(value)) {
       for (const item of value) {
-        searchParams.append(key, item);
+        searchParams.append(key, String(item));
       }
     } else if (typeof value === "object") {
       searchParams.set(key, JSON.stringify(value));
