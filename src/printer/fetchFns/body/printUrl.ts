@@ -15,6 +15,6 @@ const replacePathParams = (path: string) => {
   const paramRegex = /\{([^}]+)\}/g;
   return path.replaceAll(
     paramRegex,
-    (_, paramName: string) => `\${params.path.${paramName}}`
+    (_, paramName: string) => `\${params.path["${paramName}"]}`
   );
 };
