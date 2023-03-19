@@ -4,11 +4,12 @@ import parser from "yargs-parser";
 import main from "../dist/main.js";
 
 const HELP = `Usage
-  $ openapi-fetch-codegen [input] [options]
+  $ openapi-fetch-codegen [path] [options]
 
 Options
   --help                       Display this
   --output, -o                 Specify path to output directory
+  --parse, -p                  (optional) Specify parse mode - simple, bundle or dereference
 `;
 
 const cli = async () => {
@@ -16,9 +17,13 @@ const cli = async () => {
   const [, , ...args] = process.argv;
 
   const flags = parser(args, {
-    string: ["output"],
+    string: ["output", "parse"],
     alias: {
       output: ["o"],
+      parse: ["p"],
+    },
+    default: {
+      parse: "simple",
     },
   });
 
@@ -37,8 +42,9 @@ const cli = async () => {
     flags.output,
     new URL(`file://${process.cwd()}/`)
   );
+  const parseMode = flags.parse;
 
-  const { operationsDoc, typesDoc } = await main(pathToSpec);
+  const { operationsDoc, typesDoc } = await main({ pathToSpec, parseMode });
 
   try {
     await fs.access(pathToOutputDir);
@@ -60,7 +66,6 @@ const cli = async () => {
   ];
 
   await Promise.all(promises);
-
   console.timeEnd("Generated files in");
 };
 
