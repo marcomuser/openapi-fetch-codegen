@@ -1,4 +1,4 @@
-import {
+import type {
   OpenAPI3,
   OperationObject,
   ParameterObject,
