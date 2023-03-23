@@ -1,4 +1,5 @@
-import {
+import type { ParserOptions } from "@apidevtools/json-schema-ref-parser/dist/lib/options.js";
+import type {
   OpenAPI3,
   OperationObject,
   ParameterObject,
@@ -20,4 +21,6 @@ export type ResponsesObj = ResponsesObject;
 
 export type ResponseObj = ResponseObject;
 
-export type OTSOptions = Partial<OpenAPITSOptions>;
+export type OApiTsOptions = Partial<OpenAPITSOptions>;
+
+export type RefParserOptions = Partial<ParserOptions>;
