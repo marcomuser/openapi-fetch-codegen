@@ -4,20 +4,20 @@ export const printSerializer = () => {
 ${headersSerializer}`;
 };
 
-const querySerializer = `const serializeQuery = <T extends Record<string, unknown>>(query: T) => {
-  const searchParams = new URLSearchParams();
+const querySerializer = `const serializeQuery = <T extends Record<string, unknown>>(query: T, options: QueryOptions) => {
+  const { encoder } = options;
   for (const [key, value] of Object.entries(query)) {
     if (Array.isArray(value)) {
       for (const item of value) {
-        searchParams.append(key, String(item));
+        encoder.append(key, String(item));
       }
     } else if (typeof value === "object") {
-      searchParams.set(key, JSON.stringify(value));
+      encoder.set(key, JSON.stringify(value));
     } else {
-      searchParams.set(key, String(value));
+      encoder.set(key, String(value));
     }
   }
-  return searchParams;
+  return encoder;
 };`;
 
 const headersSerializer = `const serializeHeaders = <

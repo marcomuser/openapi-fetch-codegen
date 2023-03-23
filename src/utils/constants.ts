@@ -24,11 +24,13 @@ export const REQ_BODY_CONTENT_TYPE_DICT = {
   "*/*": "JSON.stringify(params.requestBody)",
   "application/*": "JSON.stringify(params.requestBody)",
   "application/json": "JSON.stringify(params.requestBody)",
-  "application/x-www-form-urlencoded": "serializeQuery(params.requestBody)",
+  "application/x-www-form-urlencoded":
+    "serializeQuery(params.requestBody, { encoder: new URLSearchParams() })",
+  "multipart/form-data":
+    "serializeQuery(params.requestBody, { encoder: new FormData() })",
   "text/html": "params.requestBody",
   "text/plain": "params.requestBody",
   "text/plain charset=utf-8": "params.requestBody",
-  "multipart/form-data": "new FormData(params.requestBody)",
 } as const;
 
 export const PREFERRED_RES_CONTENT_TYPES = ["application/json", "text/plain"];
