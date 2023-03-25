@@ -6,11 +6,19 @@ export const printFnHeader = ({
   reqContentType,
 }: TransformedOperation) => {
   const parametersTypeRef = hasParameters
-    ? `Exclude<operations["${operationId}"]["parameters"], "cookie">`
+    ? `Omit<operations["${operationId}"]["parameters"], "cookie">`
     : "";
 
   const reqBodyTypeRef = reqContentType
-    ? `Exclude<operations["${operationId}"]["requestBody"], undefined>["content"]["${reqContentType}"]`
+    ? `{
+  [P in keyof Pick<
+    operations["${operationId}"],
+    "requestBody"
+  >]: Exclude<
+    operations["${operationId}"]["requestBody"],
+    undefined
+  >["content"]["${reqContentType}"];
+}`
     : "";
 
   const params = getParams(parametersTypeRef, reqBodyTypeRef);
@@ -29,9 +37,9 @@ const getParams = (parametersTypeRef: string, reqBodyTypeRef: string) => {
   if (parametersTypeRef && !reqBodyTypeRef) {
     return `params: ${parametersTypeRef},`;
   } else if (!parametersTypeRef && reqBodyTypeRef) {
-    return `params: { requestBody: ${reqBodyTypeRef} },`;
+    return `params: ${reqBodyTypeRef},`;
   } else if (parametersTypeRef && reqBodyTypeRef) {
-    return `params: ${parametersTypeRef} & { requestBody: ${reqBodyTypeRef} },`;
+    return `params: ${parametersTypeRef} & ${reqBodyTypeRef},`;
   } else {
     return "";
   }
