@@ -3,10 +3,13 @@ import type { TransformedOperation } from "../../../transformer/operations/build
 export const printFnHeader = ({
   operationId,
   hasParameters,
+  parameterTypes,
   reqContentType,
 }: TransformedOperation) => {
   const parametersTypeRef = hasParameters
-    ? `Omit<operations["${operationId}"]["parameters"], "cookie">`
+    ? parameterTypes.cookie
+      ? `Omit<operations["${operationId}"]["parameters"], "cookie">`
+      : `operations["${operationId}"]["parameters"]`
     : "";
 
   const reqBodyTypeRef = reqContentType
