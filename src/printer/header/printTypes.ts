@@ -8,7 +8,7 @@ export const printTypes = () => {
 
 type ExtRequestInit = RequestInit & TBaseUrl;
 
-type QuerySerializerOptions = {
-  encoder: FormData | URLSearchParams;
+type QuerySerializerOptions<T extends FormData | URLSearchParams> = {
+  encoder: T;
 };`;
 };
