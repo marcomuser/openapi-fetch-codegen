@@ -18,7 +18,7 @@ export const printFnHeader = ({
     operations["${operationId}"],
     "requestBody"
   >]: Exclude<
-    operations["${operationId}"]["requestBody"],
+    operations["${operationId}"][P],
     undefined
   >["content"]["${reqContentType}"];
 }`
