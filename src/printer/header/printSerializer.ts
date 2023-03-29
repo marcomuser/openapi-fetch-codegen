@@ -4,7 +4,13 @@ export const printSerializer = () => {
 ${headersSerializer}`;
 };
 
-const querySerializer = `const serializeQuery = <T extends Record<string, unknown>>(query: T = {} as T, options: QuerySerializerOptions) => {
+const querySerializer = `const serializeQuery = <
+  T extends Record<string, unknown>,
+  U extends FormData | URLSearchParams
+>(
+  query: T = {} as T,
+  options: QuerySerializerOptions<U>
+) => {
   const { encoder } = options;
   for (const [key, value] of Object.entries(query)) {
     if (Array.isArray(value)) {

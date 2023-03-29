@@ -16,6 +16,7 @@ const printSwitchStatement = ({
     return `return {
   response,
   data: undefined,
+  error: undefined,
 };`;
   }
 
@@ -31,6 +32,11 @@ const printSwitchStatement = ({
       responsesWithContentType.get(status) as string,
       operationId
     )},
+    error: ${getErrorValue(
+      status,
+      responsesWithContentType.get(status) as string,
+      operationId
+    )},
   };`)}${nl()}`;
     }
   }
@@ -39,7 +45,8 @@ const printSwitchStatement = ({
     switchStatement += `${indt(`default:
   return {
     response,
-    data: ${getDataValue(
+    data: undefined,
+    error: ${getErrorValue(
       "default",
       responsesWithContentType.get("default") as string,
       operationId
@@ -51,6 +58,7 @@ const printSwitchStatement = ({
   return {
     response,
     data: undefined,
+    error: undefined,
   };`)}
 };`;
   }
@@ -63,7 +71,19 @@ const getDataValue = (
   preferredContentType: string,
   operationId?: string
 ) => {
-  if (isHandledContentType(preferredContentType)) {
+  if (isHandledContentType(preferredContentType) && isStatusOk(status)) {
+    return `(await response${RES_CONTENT_TYPE_DICT[preferredContentType]}) as operations["${operationId}"]["responses"]["${status}"]["content"]["${preferredContentType}"]`;
+  }
+
+  return "undefined";
+};
+
+const getErrorValue = (
+  status: string,
+  preferredContentType: string,
+  operationId?: string
+) => {
+  if (isHandledContentType(preferredContentType) && !isStatusOk(status)) {
     return `(await response${RES_CONTENT_TYPE_DICT[preferredContentType]}) as operations["${operationId}"]["responses"]["${status}"]["content"]["${preferredContentType}"]`;
   }
 
@@ -74,3 +94,6 @@ const isHandledContentType = (
   contentType: string
 ): contentType is keyof typeof RES_CONTENT_TYPE_DICT =>
   Object.hasOwn(RES_CONTENT_TYPE_DICT, contentType);
+
+const isStatusOk = (status: string) =>
+  status !== "default" && Number(status) >= 200 && Number(status) < 300;
