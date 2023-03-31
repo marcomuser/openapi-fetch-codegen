@@ -28,7 +28,7 @@ export const buildOperations = (spec: OpenAPIObj) => {
           parameterTypes: getParameterTypes(
             methodSchema.parameters as ParameterObj[] | undefined
           ),
-          reqContentType: getReqSortedContentType(
+          reqBody: getReqSortedContentType(
             methodSchema.requestBody as RequestBodyObj | undefined
           ),
           responsesWithContentType: getResWithSortedContentType(

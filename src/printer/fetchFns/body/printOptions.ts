@@ -4,12 +4,12 @@ import { indt, nl } from "../../../utils/format.js";
 
 export const printOptions = ({
   method,
-  reqContentType,
+  reqBody,
   parameterTypes,
 }: TransformedOperation) => {
   let optionsProps = `method: "${method}",`;
   optionsProps += getHeadersProp(parameterTypes);
-  optionsProps += getBodyProp(reqContentType);
+  optionsProps += getBodyProp(reqBody);
 
   return `const options: RequestInit = {
 ${indt(optionsProps)}
@@ -28,15 +28,15 @@ const getHeadersProp = (
   return `${nl()}headers: serializeHeaders(headers, configHeaders, params.header),`;
 };
 
-const getBodyProp = (
-  reqContentType: TransformedOperation["reqContentType"]
-) => {
+const getBodyProp = (reqContentType: TransformedOperation["reqBody"]) => {
   if (!reqContentType) {
     return "";
   }
 
-  if (isHandledContentType(reqContentType)) {
-    return `${nl()}body: ${REQ_BODY_CONTENT_TYPE_DICT[reqContentType]},`;
+  if (isHandledContentType(reqContentType.contentType)) {
+    return `${nl()}body: ${
+      REQ_BODY_CONTENT_TYPE_DICT[reqContentType.contentType]
+    },`;
   }
 
   return `${nl()}body: params.requestBody,`;

@@ -1,5 +1,5 @@
 import { PREFERRED_REQ_CONTENT_TYPES } from "../../utils/constants.js";
-import type { RequestBodyObj } from "../../utils/types.js";
+import type { MediaTypeObj, RequestBodyObj } from "../../utils/types.js";
 
 export const getReqSortedContentType = (requestBody?: RequestBodyObj) => {
   if (!requestBody?.content) {
@@ -16,7 +16,7 @@ export const getReqSortedContentType = (requestBody?: RequestBodyObj) => {
     (type) => !PREFERRED_REQ_CONTENT_TYPES.includes(type)
   );
 
-  return availableTypes
+  const contentType = availableTypes
     .sort(
       (a, z) =>
         PREFERRED_REQ_CONTENT_TYPES.indexOf(a) -
@@ -24,4 +24,11 @@ export const getReqSortedContentType = (requestBody?: RequestBodyObj) => {
     )
     .concat(remainingTypes)
     .at(0) as string;
+
+  const mediaTypeObj = requestBody.content[contentType] as MediaTypeObj;
+
+  return {
+    contentType,
+    encoding: mediaTypeObj.encoding?.[contentType] ?? null,
+  } as const;
 };

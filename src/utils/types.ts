@@ -7,6 +7,7 @@ import type {
   ResponsesObject,
   ResponseObject,
   OpenAPITSOptions,
+  MediaTypeObject,
 } from "openapi-typescript";
 
 export type OpenAPIObj = OpenAPI3;
@@ -16,6 +17,8 @@ export type OperationObj = OperationObject;
 export type ParameterObj = ParameterObject;
 
 export type RequestBodyObj = RequestBodyObject;
+
+export type MediaTypeObj = MediaTypeObject;
 
 export type ResponsesObj = ResponsesObject;
 

@@ -4,7 +4,7 @@ export const printFnHeader = ({
   operationId,
   hasParameters,
   parameterTypes,
-  reqContentType,
+  reqBody,
 }: TransformedOperation) => {
   const parametersTypeRef = hasParameters
     ? parameterTypes.cookie
@@ -12,7 +12,7 @@ export const printFnHeader = ({
       : `operations["${operationId}"]["parameters"]`
     : "";
 
-  const reqBodyTypeRef = reqContentType
+  const reqBodyTypeRef = reqBody
     ? `{
   [P in keyof Pick<
     operations["${operationId}"],
@@ -20,7 +20,7 @@ export const printFnHeader = ({
   >]: Exclude<
     operations["${operationId}"][P],
     undefined
-  >["content"]["${reqContentType}"];
+  >["content"]["${reqBody.contentType}"];
 }`
     : "";
 
