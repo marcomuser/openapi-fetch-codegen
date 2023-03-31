@@ -10,5 +10,6 @@ type ExtRequestInit = RequestInit & TBaseUrl;
 
 type QuerySerializerOptions<T extends FormData | URLSearchParams> = {
   encoder: T;
+  settings?: Record<string, { explode: boolean; style: "form" | "deepObject" }>;
 };`;
 };
