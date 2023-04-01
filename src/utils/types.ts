@@ -20,6 +20,8 @@ export type RequestBodyObj = RequestBodyObject;
 
 export type MediaTypeObj = MediaTypeObject;
 
+export type Encoding = MediaTypeObject["encoding"];
+
 export type ResponsesObj = ResponsesObject;
 
 export type ResponseObj = ResponseObject;

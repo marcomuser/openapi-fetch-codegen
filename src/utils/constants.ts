@@ -1,3 +1,5 @@
+import type { Encoding } from "./types.js";
+
 export const HTTP_VERBS = {
   get: true,
   head: true,
@@ -19,8 +21,6 @@ export const PREFERRED_REQ_CONTENT_TYPES = [
   "multipart/form-data",
   "application/x-www-form-urlencoded",
 ];
-
-type Encoding = Record<string, { explode?: boolean; style?: string }>;
 
 export const REQ_BODY_CONTENT_TYPE_DICT = {
   "*/*": "JSON.stringify(params.requestBody)",
