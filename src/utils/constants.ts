@@ -20,14 +20,20 @@ export const PREFERRED_REQ_CONTENT_TYPES = [
   "application/x-www-form-urlencoded",
 ];
 
+type Encoding = Record<string, { explode?: boolean; style?: string }>;
+
 export const REQ_BODY_CONTENT_TYPE_DICT = {
   "*/*": "JSON.stringify(params.requestBody)",
   "application/*": "JSON.stringify(params.requestBody)",
   "application/json": "JSON.stringify(params.requestBody)",
-  "application/x-www-form-urlencoded":
-    "serializeQuery(params.requestBody, { encoder: new URLSearchParams() })",
-  "multipart/form-data":
-    "serializeQuery(params.requestBody, { encoder: new FormData() })",
+  "application/x-www-form-urlencoded": (encoding?: Encoding) =>
+    `serializeQuery(params.requestBody, { encoder: new URLSearchParams(), encoding: ${JSON.stringify(
+      encoding
+    )} })`,
+  "multipart/form-data": (encoding?: Encoding) =>
+    `serializeQuery(params.requestBody, { encoder: new FormData(), encoding: ${JSON.stringify(
+      encoding
+    )} })`,
   "text/html": "params.requestBody",
   "text/plain": "params.requestBody",
   "text/plain charset=utf-8": "params.requestBody",

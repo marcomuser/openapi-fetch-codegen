@@ -34,6 +34,14 @@ const getBodyProp = (requestBody: TransformedOperation["requestBody"]) => {
   }
 
   if (isHandledContentType(requestBody.contentType)) {
+    if (
+      requestBody.contentType === "multipart/form-data" ||
+      requestBody.contentType === "application/x-www-form-urlencoded"
+    ) {
+      return `${nl()}body: ${REQ_BODY_CONTENT_TYPE_DICT[
+        requestBody.contentType
+      ](requestBody.encoding)},`;
+    }
     return `${nl()}body: ${
       REQ_BODY_CONTENT_TYPE_DICT[requestBody.contentType]
     },`;
