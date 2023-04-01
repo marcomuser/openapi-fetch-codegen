@@ -1,7 +1,7 @@
 import { PREFERRED_REQ_CONTENT_TYPES } from "../../utils/constants.js";
 import type { MediaTypeObj, RequestBodyObj } from "../../utils/types.js";
 
-export const getReqSortedContentType = (requestBody?: RequestBodyObj) => {
+export const getRequestBody = (requestBody?: RequestBodyObj) => {
   if (!requestBody?.content) {
     return null;
   }

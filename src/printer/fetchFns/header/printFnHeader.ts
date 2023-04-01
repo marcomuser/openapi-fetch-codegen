@@ -4,7 +4,7 @@ export const printFnHeader = ({
   operationId,
   hasParameters,
   parameterTypes,
-  reqBody,
+  requestBody,
 }: TransformedOperation) => {
   const parametersTypeRef = hasParameters
     ? parameterTypes.cookie
@@ -12,7 +12,7 @@ export const printFnHeader = ({
       : `operations["${operationId}"]["parameters"]`
     : "";
 
-  const reqBodyTypeRef = reqBody
+  const requestBodyTypeRef = requestBody
     ? `{
   [P in keyof Pick<
     operations["${operationId}"],
@@ -20,11 +20,11 @@ export const printFnHeader = ({
   >]: Exclude<
     operations["${operationId}"][P],
     undefined
-  >["content"]["${reqBody.contentType}"];
+  >["content"]["${requestBody.contentType}"];
 }`
     : "";
 
-  const params = getParams(parametersTypeRef, reqBodyTypeRef);
+  const params = getParams(parametersTypeRef, requestBodyTypeRef);
 
   const args = params
     ? `${params}
@@ -36,13 +36,13 @@ export const printFnHeader = ({
 ) => {`;
 };
 
-const getParams = (parametersTypeRef: string, reqBodyTypeRef: string) => {
-  if (parametersTypeRef && !reqBodyTypeRef) {
+const getParams = (parametersTypeRef: string, requestBodyTypeRef: string) => {
+  if (parametersTypeRef && !requestBodyTypeRef) {
     return `params: ${parametersTypeRef},`;
-  } else if (!parametersTypeRef && reqBodyTypeRef) {
-    return `params: ${reqBodyTypeRef},`;
-  } else if (parametersTypeRef && reqBodyTypeRef) {
-    return `params: ${parametersTypeRef} & ${reqBodyTypeRef},`;
+  } else if (!parametersTypeRef && requestBodyTypeRef) {
+    return `params: ${requestBodyTypeRef},`;
+  } else if (parametersTypeRef && requestBodyTypeRef) {
+    return `params: ${parametersTypeRef} & ${requestBodyTypeRef},`;
   } else {
     return "";
   }

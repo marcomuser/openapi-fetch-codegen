@@ -6,7 +6,7 @@ import type {
   RequestBodyObj,
 } from "../../utils/types.js";
 import { getParameterTypes } from "./getParameterTypes.js";
-import { getReqSortedContentType } from "./getReqSortedContentType.js";
+import { getRequestBody } from "./getRequestBody.js";
 import { getResWithSortedContentType } from "./getResWithSortedContentType.js";
 
 export const buildOperations = (spec: OpenAPIObj) => {
@@ -28,7 +28,7 @@ export const buildOperations = (spec: OpenAPIObj) => {
           parameterTypes: getParameterTypes(
             methodSchema.parameters as ParameterObj[] | undefined
           ),
-          reqBody: getReqSortedContentType(
+          requestBody: getRequestBody(
             methodSchema.requestBody as RequestBodyObj | undefined
           ),
           responsesWithContentType: getResWithSortedContentType(
