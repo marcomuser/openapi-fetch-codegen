@@ -11,7 +11,7 @@ const querySerializer = `const serializeQuery = <
   query: T = {} as T,
   options: QuerySerializerOptions<U>
 ) => {
-  const { encoder } = options;
+  const { encoder, encoding = {} } = options;
   for (const [key, value] of Object.entries(query)) {
     if (Array.isArray(value)) {
       for (const item of value) {

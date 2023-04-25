@@ -4,12 +4,12 @@ import { indt, nl } from "../../../utils/format.js";
 
 export const printOptions = ({
   method,
-  reqContentType,
+  requestBody,
   parameterTypes,
 }: TransformedOperation) => {
   let optionsProps = `method: "${method}",`;
   optionsProps += getHeadersProp(parameterTypes);
-  optionsProps += getBodyProp(reqContentType);
+  optionsProps += getBodyProp(requestBody);
 
   return `const options: RequestInit = {
 ${indt(optionsProps)}
@@ -28,15 +28,18 @@ const getHeadersProp = (
   return `${nl()}headers: serializeHeaders(headers, configHeaders, params.header),`;
 };
 
-const getBodyProp = (
-  reqContentType: TransformedOperation["reqContentType"]
-) => {
-  if (!reqContentType) {
+const getBodyProp = (requestBody: TransformedOperation["requestBody"]) => {
+  if (!requestBody) {
     return "";
   }
 
-  if (isHandledContentType(reqContentType)) {
-    return `${nl()}body: ${REQ_BODY_CONTENT_TYPE_DICT[reqContentType]},`;
+  if (isHandledContentType(requestBody.contentType)) {
+    return requestBody.contentType === "multipart/form-data" ||
+      requestBody.contentType === "application/x-www-form-urlencoded"
+      ? `${nl()}body: ${REQ_BODY_CONTENT_TYPE_DICT[requestBody.contentType](
+          requestBody.encoding
+        )},`
+      : `${nl()}body: ${REQ_BODY_CONTENT_TYPE_DICT[requestBody.contentType]},`;
   }
 
   return `${nl()}body: params.requestBody,`;
